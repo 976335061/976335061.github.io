@@ -197,13 +197,19 @@
 
 
 
-  <meta property="og:type" content="website">
-<meta property="og:title" content="LXY的个人博客">
-<meta property="og:url" content="http://yoursite.com/archives/2019/04/index.html">
+  <meta name="description" content="来源：https://www.google.com/ Java GC机制的学习总结 Java引入垃圾回收机制，可以把精力放在业务逻辑上，而不是处理内存问题，提高了效率 内存管理 Java的内存管理很大程度指的就是对象的管理，其中包括对象空间的分配和释放。  对象空间的分配：使用new关键字创建对象即可  对象空间的释放：将对象赋值null即可。垃圾回收器将负责回收所有”不可达”对象的内存空间。 垃">
+<meta property="og:type" content="article">
+<meta property="og:title" content="Java GC机制总结">
+<meta property="og:url" content="http://yoursite.com/2019/04/21/Java 学习日记(二)/index.html">
 <meta property="og:site_name" content="LXY的个人博客">
+<meta property="og:description" content="来源：https://www.google.com/ Java GC机制的学习总结 Java引入垃圾回收机制，可以把精力放在业务逻辑上，而不是处理内存问题，提高了效率 内存管理 Java的内存管理很大程度指的就是对象的管理，其中包括对象空间的分配和释放。  对象空间的分配：使用new关键字创建对象即可  对象空间的释放：将对象赋值null即可。垃圾回收器将负责回收所有”不可达”对象的内存空间。 垃">
 <meta property="og:locale" content="default">
+<meta property="og:image" content="https://pic.superbed.cn/item/5cba8f4d3a213b0417842094">
+<meta property="og:updated_time" content="2019-04-20T04:06:28.560Z">
 <meta name="twitter:card" content="summary">
-<meta name="twitter:title" content="LXY的个人博客">
+<meta name="twitter:title" content="Java GC机制总结">
+<meta name="twitter:description" content="来源：https://www.google.com/ Java GC机制的学习总结 Java引入垃圾回收机制，可以把精力放在业务逻辑上，而不是处理内存问题，提高了效率 内存管理 Java的内存管理很大程度指的就是对象的管理，其中包括对象空间的分配和释放。  对象空间的分配：使用new关键字创建对象即可  对象空间的释放：将对象赋值null即可。垃圾回收器将负责回收所有”不可达”对象的内存空间。 垃">
+<meta name="twitter:image" content="https://pic.superbed.cn/item/5cba8f4d3a213b0417842094">
 
 
 
@@ -211,7 +217,7 @@
 
   
   
-  <link rel="canonical" href="http://yoursite.com/archives/2019/04/">
+  <link rel="canonical" href="http://yoursite.com/2019/04/21/Java 学习日记(二)/">
 
 
 
@@ -221,7 +227,7 @@
   };
 </script>
 
-  <title>Archive | LXY的个人博客</title>
+  <title>Java GC机制总结 | LXY的个人博客</title>
   
 
 
@@ -269,7 +275,7 @@
     
   
 
-  <div class="container sidebar-position-left page-archive">
+  <div class="container sidebar-position-left page-post-detail">
     <div class="headband"></div>
     
     <header id="header" class="header" itemscope itemtype="http://schema.org/WPHeader">
@@ -324,7 +330,7 @@
         
         
           
-          <li class="menu-item menu-item-archives menu-item-active">
+          <li class="menu-item menu-item-archives">
 
     
     
@@ -345,19 +351,6 @@
 
   
     
-
-    
-    
-      
-      
-    
-      
-      
-    
-    
-
-  
-
 
   
 
@@ -384,397 +377,223 @@
           <div id="content" class="content">
             
 
-  
-  
-  
-  <div class="post-block archive">
-    <div id="posts" class="posts-collapse">
-      <span class="archive-move-on"></span>
+  <div id="posts" class="posts-expand">
+    
 
-      
-      <span class="archive-page-counter">
+  
+
+  
+  
+  
+
+  
+
+  <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
+  
+  
+  
+  <div class="post-block">
+    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2019/04/21/Java 学习日记(二)/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="name" content="liu xy">
+      <meta itemprop="description" content>
+      <meta itemprop="image" content="/images/avatar.png">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="LXY的个人博客">
+    </span>
+
+    
+      <header class="post-header">
+
         
         
+          <h1 class="post-title" itemprop="name headline">Java GC机制总结
+
+              
+            
+          </h1>
         
+
+        <div class="post-meta">
+          <span class="post-time">
+
+            
+            
+            
+
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">Posted on</span>
+              
+
+              
+                
+              
+
+              <time title="Created: 2019-04-21 01:22:00" itemprop="dateCreated datePublished" datetime="2019-04-21T01:22:00+08:00">2019-04-21</time>
+            
+
+            
+              
+
+              
+                
+                <span class="post-meta-divider">|</span>
+                
+
+                <span class="post-meta-item-icon">
+                  <i class="fa fa-calendar-check-o"></i>
+                </span>
+                
+                  <span class="post-meta-item-text">Edited on</span>
+                
+                <time title="Modified: 2019-04-20 12:06:28" itemprop="dateModified" datetime="2019-04-20T12:06:28+08:00">2019-04-20</time>
+              
+            
+          </span>
+
           
-        
-        Um..! 13 posts in total. Keep on posting.
-      </span>
-      
 
-      
-
-        
-        
-        
-
-        
           
-          <div class="collection-title">
-            <h1 class="archive-year" id="archive-year-2019">2019</h1>
-          </div>
-        
-        
-
-        
-
-  <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
-    <header class="post-header">
-
-      <h2 class="post-title">
-        
-          <a class="post-title-link" href="/2019/04/22/Java 学习日记(三)/" itemprop="url">
             
-              <span itemprop="name">Java 分代与GC机制</span>
             
-          </a>
-        
-      </h2>
+          
 
-      <div class="post-meta">
-        <time class="post-time" itemprop="dateCreated" datetime="2019-04-22T00:12:34+08:00" content="2019-04-22">
-          04-22
-        </time>
-      </div>
+          
+          
 
-    </header>
-  </article>
+          
 
+          
 
+          
+
+        </div>
+      </header>
+    
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
 
       
-
-        
-        
-        
-
-        
-        
-
-        
-
-  <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
-    <header class="post-header">
-
-      <h2 class="post-title">
-        
-          <a class="post-title-link" href="/2019/04/22/谷歌助手安装/" itemprop="url">
-            
-              <span itemprop="name">Google助手</span>
-            
-          </a>
-        
-      </h2>
-
-      <div class="post-meta">
-        <time class="post-time" itemprop="dateCreated" datetime="2019-04-22T00:12:34+08:00" content="2019-04-22">
-          04-22
-        </time>
-      </div>
-
-    </header>
-  </article>
-
-
-
       
 
-        
-        
-        
+      
+        <p>来源：<a href="https://www.google.com/" target="_blank" rel="noopener">https://www.google.com/</a><br><img src="https://pic.superbed.cn/item/5cba8f4d3a213b0417842094" alt></p>
+<p>Java GC机制的学习总结</p>
+<p>Java引入垃圾回收机制，可以把精力放在业务逻辑上，而不是处理内存问题，提高了效率</p>
+<h5 id="内存管理"><a href="#内存管理" class="headerlink" title="内存管理"></a>内存管理</h5><ul>
+<li><p>Java的内存管理很大程度指的就是对象的管理，其中包括对象空间的分配和释放。</p>
+</li>
+<li><p>对象空间的分配：使用new关键字创建对象即可</p>
+</li>
+<li><p>对象空间的释放：将对象赋值null即可。垃圾回收器将负责回收所有”不可达”对象的内存空间。</p>
+<h5 id="垃圾回收过程"><a href="#垃圾回收过程" class="headerlink" title="垃圾回收过程"></a>垃圾回收过程</h5></li>
+<li><ol>
+<li>发现无用的对象</li>
+</ol>
+</li>
+<li><ol start="2">
+<li>回收无用对象占用的内存空间。<h5 id="垃圾回收相关算法"><a href="#垃圾回收相关算法" class="headerlink" title="垃圾回收相关算法"></a>垃圾回收相关算法</h5><strong>引用计数法</strong></li>
+</ol>
+</li>
+</ul>
+<p>堆中每个对象，都有一个引用计数，引用一次计数加1，被引用的变量值变为null，则计数减1，一直到计数为0，变成无用对象，</p>
+<pre><code>public class Student {
+    String name;
+    Student friend;
 
-        
-        
+public static void main(String[] args) {
+    Student s1 = new Student();
+    Student s2 = new Student();
 
-        
-
-  <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
-    <header class="post-header">
-
-      <h2 class="post-title">
-        
-          <a class="post-title-link" href="/2019/04/21/Java 学习日记(二)/" itemprop="url">
-            
-              <span itemprop="name">Java GC机制总结</span>
-            
-          </a>
-        
-      </h2>
-
-      <div class="post-meta">
-        <time class="post-time" itemprop="dateCreated" datetime="2019-04-21T01:22:00+08:00" content="2019-04-21">
-          04-21
-        </time>
-      </div>
-
-    </header>
-  </article>
-
-
+    s1.friend = s2;
+    s2.friend = s1;        
+    s1 = null;
+    s2 = null;
+    }
+}
+</code></pre><p>优点是算法简单；缺点是<strong>循环引用的对象（无用的对象）无法被识别</strong></p>
+<ul>
+<li>上图中s1和s2互相引用对方，导致计数不为0，已经变为无用的对象，但是无法被识别</li>
+</ul>
+<p><strong><a href="https://my.oschina.net/dabird/blog/1594600" target="_blank" rel="noopener">根搜索算法(GC root)</a></strong></p>
+<p>基本思想就是选定一些对象作为，<code>GC Roots</code>，并组成根对象集合，从一个节点GC ROOT开始，寻找对应的引用节点，找到这个节点以后，继续寻找这个节点的引用节点，当所有的引用节点寻找完毕之后，剩余的节点则被认为是没有被引用到的节点，即无用的节点。</p>
 
       
-
-        
-        
-        
-
-        
-        
-
-        
-
-  <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
-    <header class="post-header">
-
-      <h2 class="post-title">
-        
-          <a class="post-title-link" href="/2019/04/20/Markdown 基本语法/" itemprop="url">
-            
-              <span itemprop="name">Maekdown 基本语法</span>
-            
-          </a>
-        
-      </h2>
-
-      <div class="post-meta">
-        <time class="post-time" itemprop="dateCreated" datetime="2019-04-20T20:55:42+08:00" content="2019-04-20">
-          04-20
-        </time>
-      </div>
-
-    </header>
-  </article>
-
-
-
-      
-
-        
-        
-        
-
-        
-        
-
-        
-
-  <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
-    <header class="post-header">
-
-      <h2 class="post-title">
-        
-          <a class="post-title-link" href="/2019/04/20/Java 学习日记(一)/" itemprop="url">
-            
-              <span itemprop="name">构造方法的重载</span>
-            
-          </a>
-        
-      </h2>
-
-      <div class="post-meta">
-        <time class="post-time" itemprop="dateCreated" datetime="2019-04-20T11:04:00+08:00" content="2019-04-20">
-          04-20
-        </time>
-      </div>
-
-    </header>
-  </article>
-
-
-
-      
-
-        
-        
-        
-
-        
-        
-
-        
-
-  <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
-    <header class="post-header">
-
-      <h2 class="post-title">
-        
-          <a class="post-title-link" href="/2019/04/19/图床推荐/" itemprop="url">
-            
-              <span itemprop="name">图床推荐</span>
-            
-          </a>
-        
-      </h2>
-
-      <div class="post-meta">
-        <time class="post-time" itemprop="dateCreated" datetime="2019-04-19T22:47:22+08:00" content="2019-04-19">
-          04-19
-        </time>
-      </div>
-
-    </header>
-  </article>
-
-
-
-      
-
-        
-        
-        
-
-        
-        
-
-        
-
-  <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
-    <header class="post-header">
-
-      <h2 class="post-title">
-        
-          <a class="post-title-link" href="/2019/04/19/Hexo 搭建博客(四)/" itemprop="url">
-            
-              <span itemprop="name">Hexo 搭建博客(四)</span>
-            
-          </a>
-        
-      </h2>
-
-      <div class="post-meta">
-        <time class="post-time" itemprop="dateCreated" datetime="2019-04-19T20:55:42+08:00" content="2019-04-19">
-          04-19
-        </time>
-      </div>
-
-    </header>
-  </article>
-
-
-
-      
-
-        
-        
-        
-
-        
-        
-
-        
-
-  <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
-    <header class="post-header">
-
-      <h2 class="post-title">
-        
-          <a class="post-title-link" href="/2019/04/19/HEXO搭建博客(一)/" itemprop="url">
-            
-              <span itemprop="name">Hexo 搭建博客(一)</span>
-            
-          </a>
-        
-      </h2>
-
-      <div class="post-meta">
-        <time class="post-time" itemprop="dateCreated" datetime="2019-04-19T20:55:42+08:00" content="2019-04-19">
-          04-19
-        </time>
-      </div>
-
-    </header>
-  </article>
-
-
-
-      
-
-        
-        
-        
-
-        
-        
-
-        
-
-  <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
-    <header class="post-header">
-
-      <h2 class="post-title">
-        
-          <a class="post-title-link" href="/2019/04/19/HEXO搭建博客(二)/" itemprop="url">
-            
-              <span itemprop="name">Hexo 搭建博客(二)</span>
-            
-          </a>
-        
-      </h2>
-
-      <div class="post-meta">
-        <time class="post-time" itemprop="dateCreated" datetime="2019-04-19T20:55:42+08:00" content="2019-04-19">
-          04-19
-        </time>
-      </div>
-
-    </header>
-  </article>
-
-
-
-      
-
-        
-        
-        
-
-        
-        
-
-        
-
-  <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
-    <header class="post-header">
-
-      <h2 class="post-title">
-        
-          <a class="post-title-link" href="/2019/04/19/HEXO搭建博客(三)/" itemprop="url">
-            
-              <span itemprop="name">Hexo 搭建博客(三)</span>
-            
-          </a>
-        
-      </h2>
-
-      <div class="post-meta">
-        <time class="post-time" itemprop="dateCreated" datetime="2019-04-19T20:55:42+08:00" content="2019-04-19">
-          04-19
-        </time>
-      </div>
-
-    </header>
-  </article>
-
-
-
-      
-
     </div>
+
+    
+
+    
+    
+    
+
+    
+
+    
+      
+    
+    
+
+    
+
+    <footer class="post-footer">
+      
+
+      
+      
+      
+
+      
+        <div class="post-nav">
+          <div class="post-nav-next post-nav-item">
+            
+              <a href="/2019/04/20/Markdown 基本语法/" rel="next" title="Maekdown 基本语法">
+                <i class="fa fa-chevron-left"></i> Maekdown 基本语法
+              </a>
+            
+          </div>
+
+          <span class="post-nav-divider"></span>
+
+          <div class="post-nav-prev post-nav-item">
+            
+              <a href="/2019/04/22/谷歌助手安装/" rel="prev" title="Google助手">
+                Google助手 <i class="fa fa-chevron-right"></i>
+              </a>
+            
+          </div>
+        </div>
+      
+
+      
+      
+    </footer>
   </div>
   
   
   
-
-  
-  <nav class="pagination">
-    <span class="page-number current">1</span><a class="page-number" href="/archives/2019/04/page/2/">2</a><a class="extend next" rel="next" href="/archives/2019/04/page/2/"><i class="fa fa-angle-right" aria-label="Next page"></i></a>
-  </nav>
+  </article>
 
 
+  </div>
 
 
           </div>
           
+
+  
+
+
 
         </div>
         
@@ -794,8 +613,17 @@
       
 
       
+        <ul class="sidebar-nav motion-element">
+          <li class="sidebar-nav-toc sidebar-nav-active" data-target="post-toc-wrap">
+            Table of Contents
+          </li>
+          <li class="sidebar-nav-overview" data-target="site-overview-wrap">
+            Overview
+          </li>
+        </ul>
+      
 
-      <div class="site-overview-wrap sidebar-panel sidebar-panel-active">
+      <div class="site-overview-wrap sidebar-panel">
         <div class="site-overview">
           <div class="site-author motion-element" itemprop="author" itemscope itemtype="http://schema.org/Person">
             
@@ -880,6 +708,23 @@
         </div>
       </div>
 
+      
+      <!--noindex-->
+        <div class="post-toc-wrap motion-element sidebar-panel sidebar-panel-active">
+          <div class="post-toc">
+
+            
+            
+            
+            
+
+            
+              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-5"><a class="nav-link" href="#内存管理"><span class="nav-number">1.</span> <span class="nav-text">内存管理</span></a></li><li class="nav-item nav-level-5"><a class="nav-link" href="#垃圾回收过程"><span class="nav-number">2.</span> <span class="nav-text">垃圾回收过程</span></a></li><li class="nav-item nav-level-5"><a class="nav-link" href="#垃圾回收相关算法"><span class="nav-number">3.</span> <span class="nav-text">垃圾回收相关算法</span></a></li></ol></div>
+            
+
+          </div>
+        </div>
+      <!--/noindex-->
       
 
       
@@ -1016,6 +861,10 @@
 
 
   
+  <script src="/js/scrollspy.js?v=7.1.0"></script>
+<script src="/js/post-details.js?v=7.1.0"></script>
+
+
 
   
 
@@ -1031,6 +880,8 @@
 
   
 
+
+  
 
 
   

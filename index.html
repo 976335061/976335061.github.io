@@ -153,7 +153,7 @@
   <link rel="apple-touch-icon" sizes="180x180" href="/images/apple-touch-icon-next.png?v=7.1.0">
 
 
-  <link rel="icon" type="image/png" sizes="32x32" href="/images/lxy.ico?v=7.1.0">
+  <link rel="icon" type="image/png" sizes="32x32" href="/images/favicon-32x32-next.png?v=7.1.0">
 
 
   <link rel="icon" type="image/png" sizes="16x16" href="/images/favicon-16x16-next.png?v=7.1.0">
@@ -372,6 +372,524 @@
           <div id="content" class="content">
             
   <section id="posts" class="posts-expand">
+    
+      
+
+  
+
+  
+  
+  
+
+  
+
+  <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
+  
+  
+  
+  <div class="post-block">
+    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2019/04/22/Java 学习日记(三)/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="name" content="liu xy">
+      <meta itemprop="description" content>
+      <meta itemprop="image" content="/images/avatar.png">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="LXY的个人博客">
+    </span>
+
+    
+      <header class="post-header">
+
+        
+        
+          <h1 class="post-title" itemprop="name headline">
+                
+                
+                <a href="/2019/04/22/Java 学习日记(三)/" class="post-title-link" itemprop="url">Java 分代与GC机制</a>
+              
+            
+          </h1>
+        
+
+        <div class="post-meta">
+          <span class="post-time">
+
+            
+            
+            
+
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">Posted on</span>
+              
+
+              
+                
+              
+
+              <time title="Created: 2019-04-22 00:12:34" itemprop="dateCreated datePublished" datetime="2019-04-22T00:12:34+08:00">2019-04-22</time>
+            
+
+            
+              
+
+              
+                
+                <span class="post-meta-divider">|</span>
+                
+
+                <span class="post-meta-item-icon">
+                  <i class="fa fa-calendar-check-o"></i>
+                </span>
+                
+                  <span class="post-meta-item-text">Edited on</span>
+                
+                <time title="Modified: 2019-04-20 12:06:17" itemprop="dateModified" datetime="2019-04-20T12:06:17+08:00">2019-04-20</time>
+              
+            
+          </span>
+
+          
+
+          
+            
+            
+          
+
+          
+          
+
+          
+
+          
+
+          
+
+        </div>
+      </header>
+    
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+      
+
+      
+        
+          
+            <p>&#160; &#160; &#160; &#160;不同的对象的生命周期是不一样的。实际上随着分配的对象增多， GC的时间与开销将会放大。所以，JVM的内存被分为了三个主要部分：新生代，老年代和永久代。</p>
+<ul>
+<li>新生代<br>&#160; &#160; &#160; &#160;新生代被默认放到<code>Eden</code>区。年轻代年轻代的目标就是尽可能快速的收集掉那些生命周期短的对象，对应的是Minor GC，每次 Minor GC 会清理年轻代的内存，算法采用效率较高的复制算法，频繁的操作，但是会浪费内存空间。当“年轻代”区域存放满对象后，就将对象存放到年老代区域。</li>
+<li>年老代<br>&#160; &#160; &#160; &#160;在年轻代中经历了N(默认15)次垃圾回收后仍然存活的对象，就会被放到年老代中。因此，可以认为年老代中存放的都是一些生命周期较长的对象。年老代对象越来越多，我们就需要启动Major GC和Full GC(全量回收)，来一次大扫除，全面清理年轻代区域和年老代区域。</li>
+<li>永久代<br>&#160; &#160; &#160; &#160;永久代位于方法区，用于存放静态文件，如Java类、方法等。持久代对垃圾回收没有显著影响</li>
+</ul>
+<p><code>Minor GC</code>:<br>　　用于清理年轻代区域。Eden区满了就会触发一次Minor GC。清理无用对象，将有用对象复制到“Survivor1”、“Survivor2”区中(这两个区，大小空间也相同，同一时刻Survivor1和Survivor2只有一个在用，一个为空)<br><code>Major GC</code>：<br>&#160; &#160; &#160; &#160;用于清理老年代区域。<br><code>Full GC</code>：<br>　　用于清理年轻代、年老代区域。 成本较高，会对系统性能产生影响。</p>
+<p><strong>小结</strong></p>
+<ul>
+<li>1、新创建的对象，绝大多数都会存储在Eden中</li>
+<li>2、当Eden满了（达到一定比例）不能创建新对象，则触发垃圾回收（GC），将无用对象清理掉，然后剩余对象复制到某个Survivor中，如S1，同时清空Eden区</li>
+<li>3、当Eden区再次满了，会将S1中的不能清空的对象存到另外一个Survivor中，如S2，同时将Eden区中的不能清空的对象，也复制到S1中，保证Eden和S1，均被清空。</li>
+<li>4、重复多次(默认15次)Survivor中没有被清理的对象，则会复制到老年代Old(Tenured)区中，</li>
+<li>5、当Old区满了，则会触发一个一次完整地垃圾回收（FullGC），之前新生代的垃圾回收称为（minorGC）</li>
+</ul>
+
+          
+        
+      
+    </div>
+
+    
+
+    
+    
+    
+
+    
+
+    
+      
+    
+    
+
+    
+
+    <footer class="post-footer">
+      
+
+      
+
+      
+
+      
+      
+        <div class="post-eof"></div>
+      
+    </footer>
+  </div>
+  
+  
+  
+  </article>
+
+
+    
+      
+
+  
+
+  
+  
+  
+
+  
+
+  <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
+  
+  
+  
+  <div class="post-block">
+    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2019/04/22/谷歌助手安装/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="name" content="liu xy">
+      <meta itemprop="description" content>
+      <meta itemprop="image" content="/images/avatar.png">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="LXY的个人博客">
+    </span>
+
+    
+      <header class="post-header">
+
+        
+        
+          <h1 class="post-title" itemprop="name headline">
+                
+                
+                <a href="/2019/04/22/谷歌助手安装/" class="post-title-link" itemprop="url">Google助手</a>
+              
+            
+          </h1>
+        
+
+        <div class="post-meta">
+          <span class="post-time">
+
+            
+            
+            
+
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">Posted on</span>
+              
+
+              
+                
+              
+
+              <time title="Created: 2019-04-22 00:12:34" itemprop="dateCreated datePublished" datetime="2019-04-22T00:12:34+08:00">2019-04-22</time>
+            
+
+            
+              
+
+              
+                
+                <span class="post-meta-divider">|</span>
+                
+
+                <span class="post-meta-item-icon">
+                  <i class="fa fa-calendar-check-o"></i>
+                </span>
+                
+                  <span class="post-meta-item-text">Edited on</span>
+                
+                <time title="Modified: 2019-04-20 13:09:28" itemprop="dateModified" datetime="2019-04-20T13:09:28+08:00">2019-04-20</time>
+              
+            
+          </span>
+
+          
+
+          
+            
+            
+          
+
+          
+          
+
+          
+
+          
+
+          
+
+        </div>
+      </header>
+    
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+      
+
+      
+        
+          
+            <p><img src="https://pic.superbed.cn/item/5cbaa8833a213b0417851339" alt><br>&#160;&#160;&#160;&#160;仅为香港地区用户提供谷歌chrome商店，gmail邮箱提供加速服务，解决偶尔打不开的问题<br>&#160;&#160;&#160;&#160;仅为学生，外贸人群，chrome扩展商店用户等需要的用户，提供加速服务。<br>&#160;&#160;&#160;&#160;<a href="http://www.ggfwzs.com/" target="_blank" rel="noopener">谷歌访问助手</a></p>
+
+          
+        
+      
+    </div>
+
+    
+
+    
+    
+    
+
+    
+
+    
+      
+    
+    
+
+    
+
+    <footer class="post-footer">
+      
+
+      
+
+      
+
+      
+      
+        <div class="post-eof"></div>
+      
+    </footer>
+  </div>
+  
+  
+  
+  </article>
+
+
+    
+      
+
+  
+
+  
+  
+  
+
+  
+
+  <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
+  
+  
+  
+  <div class="post-block">
+    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2019/04/21/Java 学习日记(二)/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="name" content="liu xy">
+      <meta itemprop="description" content>
+      <meta itemprop="image" content="/images/avatar.png">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="LXY的个人博客">
+    </span>
+
+    
+      <header class="post-header">
+
+        
+        
+          <h1 class="post-title" itemprop="name headline">
+                
+                
+                <a href="/2019/04/21/Java 学习日记(二)/" class="post-title-link" itemprop="url">Java GC机制总结</a>
+              
+            
+          </h1>
+        
+
+        <div class="post-meta">
+          <span class="post-time">
+
+            
+            
+            
+
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">Posted on</span>
+              
+
+              
+                
+              
+
+              <time title="Created: 2019-04-21 01:22:00" itemprop="dateCreated datePublished" datetime="2019-04-21T01:22:00+08:00">2019-04-21</time>
+            
+
+            
+              
+
+              
+                
+                <span class="post-meta-divider">|</span>
+                
+
+                <span class="post-meta-item-icon">
+                  <i class="fa fa-calendar-check-o"></i>
+                </span>
+                
+                  <span class="post-meta-item-text">Edited on</span>
+                
+                <time title="Modified: 2019-04-20 12:06:28" itemprop="dateModified" datetime="2019-04-20T12:06:28+08:00">2019-04-20</time>
+              
+            
+          </span>
+
+          
+
+          
+            
+            
+          
+
+          
+          
+
+          
+
+          
+
+          
+
+        </div>
+      </header>
+    
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+      
+
+      
+        
+          
+            <p>来源：<a href="https://www.google.com/" target="_blank" rel="noopener">https://www.google.com/</a><br><img src="https://pic.superbed.cn/item/5cba8f4d3a213b0417842094" alt></p>
+<p>Java GC机制的学习总结</p>
+<p>Java引入垃圾回收机制，可以把精力放在业务逻辑上，而不是处理内存问题，提高了效率</p>
+<h5 id="内存管理"><a href="#内存管理" class="headerlink" title="内存管理"></a>内存管理</h5><ul>
+<li><p>Java的内存管理很大程度指的就是对象的管理，其中包括对象空间的分配和释放。</p>
+</li>
+<li><p>对象空间的分配：使用new关键字创建对象即可</p>
+</li>
+<li><p>对象空间的释放：将对象赋值null即可。垃圾回收器将负责回收所有”不可达”对象的内存空间。</p>
+<h5 id="垃圾回收过程"><a href="#垃圾回收过程" class="headerlink" title="垃圾回收过程"></a>垃圾回收过程</h5></li>
+<li><ol>
+<li>发现无用的对象</li>
+</ol>
+</li>
+<li><ol start="2">
+<li>回收无用对象占用的内存空间。<h5 id="垃圾回收相关算法"><a href="#垃圾回收相关算法" class="headerlink" title="垃圾回收相关算法"></a>垃圾回收相关算法</h5><strong>引用计数法</strong></li>
+</ol>
+</li>
+</ul>
+<p>堆中每个对象，都有一个引用计数，引用一次计数加1，被引用的变量值变为null，则计数减1，一直到计数为0，变成无用对象，</p>
+<pre><code>public class Student {
+    String name;
+    Student friend;
+
+public static void main(String[] args) {
+    Student s1 = new Student();
+    Student s2 = new Student();
+
+    s1.friend = s2;
+    s2.friend = s1;        
+    s1 = null;
+    s2 = null;
+    }
+}
+</code></pre><p>优点是算法简单；缺点是<strong>循环引用的对象（无用的对象）无法被识别</strong></p>
+<ul>
+<li>上图中s1和s2互相引用对方，导致计数不为0，已经变为无用的对象，但是无法被识别</li>
+</ul>
+<p><strong><a href="https://my.oschina.net/dabird/blog/1594600" target="_blank" rel="noopener">根搜索算法(GC root)</a></strong></p>
+<p>基本思想就是选定一些对象作为，<code>GC Roots</code>，并组成根对象集合，从一个节点GC ROOT开始，寻找对应的引用节点，找到这个节点以后，继续寻找这个节点的引用节点，当所有的引用节点寻找完毕之后，剩余的节点则被认为是没有被引用到的节点，即无用的节点。</p>
+
+          
+        
+      
+    </div>
+
+    
+
+    
+    
+    
+
+    
+
+    
+      
+    
+    
+
+    
+
+    <footer class="post-footer">
+      
+
+      
+
+      
+
+      
+      
+        <div class="post-eof"></div>
+      
+    </footer>
+  </div>
+  
+  
+  
+  </article>
+
+
     
       
 
@@ -641,6 +1159,173 @@
   
   
   <div class="post-block">
+    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2019/04/20/Java 学习日记(一)/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="name" content="liu xy">
+      <meta itemprop="description" content>
+      <meta itemprop="image" content="/images/avatar.png">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="LXY的个人博客">
+    </span>
+
+    
+      <header class="post-header">
+
+        
+        
+          <h1 class="post-title" itemprop="name headline">
+                
+                
+                <a href="/2019/04/20/Java 学习日记(一)/" class="post-title-link" itemprop="url">构造方法的重载</a>
+              
+            
+          </h1>
+        
+
+        <div class="post-meta">
+          <span class="post-time">
+
+            
+            
+            
+
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">Posted on</span>
+              
+
+              
+                
+              
+
+              <time title="Created: 2019-04-20 11:04:00 / Modified: 11:09:31" itemprop="dateCreated datePublished" datetime="2019-04-20T11:04:00+08:00">2019-04-20</time>
+            
+
+            
+              
+
+              
+            
+          </span>
+
+          
+
+          
+            
+            
+          
+
+          
+          
+
+          
+
+          
+
+          
+
+        </div>
+      </header>
+    
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+      
+
+      
+        
+          
+            <p><strong>构造方法重载（创建不同的对象）</strong></p>
+<pre><code>public class User {
+    int id; // id
+    String name; // 账户名
+    String pwd; // 密码
+    public User() {
+
+}
+public User(int id, String name) {
+    super();
+    this.id = id;
+    this.name = name;
+}
+public User(int id, String name, String pwd) {
+    this.id = id;
+    this.name = name;
+    this.pwd = pwd;
+}
+public static void main(String[] args) {
+    User u1 = new User();
+    User u2 = new User(101, &quot;阳阳&quot;);
+    User u3 = new User(100, &quot;旭旭&quot;, &quot;123456&quot;);     
+}
+}
+</code></pre><p>注：如果方法构造中形参名与属性名相同时，需要使用this关键字区分属性和形参 <strong>this.id</strong>表示属性；id表示形参id</p>
+
+          
+        
+      
+    </div>
+
+    
+
+    
+    
+    
+
+    
+
+    
+      
+    
+    
+
+    
+
+    <footer class="post-footer">
+      
+
+      
+
+      
+
+      
+      
+        <div class="post-eof"></div>
+      
+    </footer>
+  </div>
+  
+  
+  
+  </article>
+
+
+    
+      
+
+  
+
+  
+  
+  
+
+  
+
+  <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
+  
+  
+  
+  <div class="post-block">
     <link itemprop="mainEntityOfPage" href="http://yoursite.com/2019/04/19/图床推荐/">
 
     <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
@@ -730,328 +1415,6 @@
             <h4 id="postsimg"><a href="#postsimg" class="headerlink" title="postsimg"></a>postsimg</h4><p>官方网站：<a href="https://postimages.org" target="_blank" rel="noopener">https://postimages.org</a><br><img src="https://pic.superbed.cn/item/5cb9e1183a213b04177f3535"><br><strong>简介</strong>：国外的图床，但是速度也很快。永久存储免注册，图片链接支持https，可以删除上传的图片，提供多种图片链接格式<br><strong>限制</strong>：匿名上传和免费帐户上传的图片仅限于12Mb和10k x 10k像素。高级帐户仅限于24Mb和10k x 10k像素。每批最多限制为1000张图像，如果不够可以创建一个帐户并将多批图像上传到同一个图库中</p>
 <h4 id="路过图床"><a href="#路过图床" class="headerlink" title="路过图床"></a>路过图床</h4><p>官方网站：<a href="https://imgchr.com" target="_blank" rel="noopener">https://imgchr.com</a><br><img src="https://pic.superbed.cn/item/5cb9e1bd3a213b04177f3936"><br><strong>简介</strong>：支持免注册上传图片，永久存储，支持HTTPS加密访问和调用图片，提供多种图片链接格式<br><strong>限制</strong>：最大10M</p>
 <h4 id="聚合图床（推荐）"><a href="#聚合图床（推荐）" class="headerlink" title="聚合图床（推荐）"></a>聚合图床（推荐）</h4><p>官方网站：<a href="https://www.superbed.cn" target="_blank" rel="noopener">https://www.superbed.cn</a><br><img src="https://pic.superbed.cn/item/5cb9e21c3a213b04177f3c0a"><br><strong>简介</strong>：将图片分发到多处备份，借助其本身的CDN加速功能，节省服务器流量，并且不用担心图片被删除，即便其中某几个图床上的图片被删除了，还有其他备份，保证万无一失，支持匿名和注册管理<br><strong>图片上传限制</strong>：无</p>
-
-          
-        
-      
-    </div>
-
-    
-
-    
-    
-    
-
-    
-
-    
-      
-    
-    
-
-    
-
-    <footer class="post-footer">
-      
-
-      
-
-      
-
-      
-      
-        <div class="post-eof"></div>
-      
-    </footer>
-  </div>
-  
-  
-  
-  </article>
-
-
-    
-      
-
-  
-
-  
-  
-  
-
-  
-
-  <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
-  
-  
-  
-  <div class="post-block">
-    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2019/04/19/HEXO搭建博客(一)/">
-
-    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
-      <meta itemprop="name" content="liu xy">
-      <meta itemprop="description" content>
-      <meta itemprop="image" content="/images/avatar.png">
-    </span>
-
-    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
-      <meta itemprop="name" content="LXY的个人博客">
-    </span>
-
-    
-      <header class="post-header">
-
-        
-        
-          <h1 class="post-title" itemprop="name headline">
-                
-                
-                <a href="/2019/04/19/HEXO搭建博客(一)/" class="post-title-link" itemprop="url">Hexo 搭建博客(一)</a>
-              
-            
-          </h1>
-        
-
-        <div class="post-meta">
-          <span class="post-time">
-
-            
-            
-            
-
-            
-              <span class="post-meta-item-icon">
-                <i class="fa fa-calendar-o"></i>
-              </span>
-              
-                <span class="post-meta-item-text">Posted on</span>
-              
-
-              
-                
-              
-
-              <time title="Created: 2019-04-19 20:55:42 / Modified: 18:35:16" itemprop="dateCreated datePublished" datetime="2019-04-19T20:55:42+08:00">2019-04-19</time>
-            
-
-            
-              
-
-              
-            
-          </span>
-
-          
-
-          
-            
-            
-          
-
-          
-          
-
-          
-
-          
-
-          
-
-        </div>
-      </header>
-    
-
-    
-    
-    
-    <div class="post-body" itemprop="articleBody">
-
-      
-      
-
-      
-        
-          
-            <p><a href="https://www.bilibili.com/video/av44544186?t=1117" target="_blank" rel="noopener">参考bilibili视频</a></p>
-<p>基于MAC OS系统，所有以下在macOS Mojave下进行演示</p>
-<p>感谢 UP主<a href="https://www.codesheep.cn/" target="_blank" rel="noopener">CodeSheep</a></p>
-<p>###01 安装 Node.js<br><a href="https://www.codesheep.cn/" target="_blank" rel="noopener">官方网站</a></p>
-<pre><code>https://nodejs.org
-</code></pre><p><img src="https://pic.superbed.cn/item/5cb986b13a213b04177bdb04"></p>
-<p>###02 安装 Git(mac用户跳过)<br><a href="https://git-scm.com/downloads" target="_blank" rel="noopener">官方网站</a></p>
-<pre><code>https://git-scm.com/downloads
-</code></pre><p><img src="https://pic.superbed.cn/item/5cb987bb3a213b04177be3fa"></p>
-<p>所有东西按照官方的来就好，Git Bash下载下来就相当于Mac中的终端窗口了</p>
-<p>###03 安装 Hexo<br><img src="https://pic.superbed.cn/item/5cb988c93a213b04177bede9"><br>国内地址比较慢，所以用一下淘宝的镜像源</p>
-<pre><code>npm install -g cnpm --registry=https://registry.npm.taobao.org
-</code></pre><p><img src="https://pic.superbed.cn/item/5cb989893a213b04177bf74a"></p>
-<p>验证以下安装是否成功</p>
-<pre><code>hexo -v
-</code></pre><p><img src="https://pic.superbed.cn/item/5cb989de3a213b04177bfa2e"></p>
-<p>再创建文件夹</p>
-<pre><code>makdir blog
-cd blog/
-</code></pre><p>安装hexo</p>
-<pre><code>sudo hexo init
-</code></pre><p><img src="https://pic.superbed.cn/item/5cb98b043a213b04177c0672"></p>
-<h3 id="04-测试"><a href="#04-测试" class="headerlink" title="04 测试"></a>04 测试</h3><pre><code>1:hexo clean #清理缓存
-2:hexo g     #生成文件
-3:hexo s     #运行本地服务器
-4:hexo d     #上传到服务器
-</code></pre><p><img src="https://pic.superbed.cn/item/5cb98bb53a213b04177c0d9e" alt></p>
-<p>打开浏览器输入  <em>localhost:4000</em></p>
-<p><a href="https://pic.superbed.cn/item/5cb98c373a213b04177c125c" target="_blank" rel="noopener"><img src="https://pic.superbed.cn/item/5cb98c373a213b04177c125c" alt></a></p>
-<h2 id="本地环境搭建完成"><a href="#本地环境搭建完成" class="headerlink" title="本地环境搭建完成"></a>本地环境搭建完成</h2>
-          
-        
-      
-    </div>
-
-    
-
-    
-    
-    
-
-    
-
-    
-      
-    
-    
-
-    
-
-    <footer class="post-footer">
-      
-
-      
-
-      
-
-      
-      
-        <div class="post-eof"></div>
-      
-    </footer>
-  </div>
-  
-  
-  
-  </article>
-
-
-    
-      
-
-  
-
-  
-  
-  
-
-  
-
-  <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
-  
-  
-  
-  <div class="post-block">
-    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2019/04/19/HEXO搭建博客(三)/">
-
-    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
-      <meta itemprop="name" content="liu xy">
-      <meta itemprop="description" content>
-      <meta itemprop="image" content="/images/avatar.png">
-    </span>
-
-    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
-      <meta itemprop="name" content="LXY的个人博客">
-    </span>
-
-    
-      <header class="post-header">
-
-        
-        
-          <h1 class="post-title" itemprop="name headline">
-                
-                
-                <a href="/2019/04/19/HEXO搭建博客(三)/" class="post-title-link" itemprop="url">Hexo 搭建博客(三)</a>
-              
-            
-          </h1>
-        
-
-        <div class="post-meta">
-          <span class="post-time">
-
-            
-            
-            
-
-            
-              <span class="post-meta-item-icon">
-                <i class="fa fa-calendar-o"></i>
-              </span>
-              
-                <span class="post-meta-item-text">Posted on</span>
-              
-
-              
-                
-              
-
-              <time title="Created: 2019-04-19 20:55:42 / Modified: 18:35:17" itemprop="dateCreated datePublished" datetime="2019-04-19T20:55:42+08:00">2019-04-19</time>
-            
-
-            
-              
-
-              
-            
-          </span>
-
-          
-
-          
-            
-            
-          
-
-          
-          
-
-          
-
-          
-
-          
-
-        </div>
-      </header>
-    
-
-    
-    
-    
-    <div class="post-body" itemprop="articleBody">
-
-      
-      
-
-      
-        
-          
-            <p>如何觉得系统配置的主题不好看，可以去自己找大神们分享的主题下载<br>这里我推荐一个github上star，fork数比较高的项目<br><a href="https://github.com/theme-next/hexo-theme-next/blob/master/docs/zh-CN/README.md" target="_blank" rel="noopener">Next</a><br>最简单的方式就是克隆整个仓库</p>
-<pre><code>git clone https://github.com/theme-next/hexo-theme-next themes/next
-</code></pre><h5 id="把下载的文件夹放入你的项目中themes文件夹中"><a href="#把下载的文件夹放入你的项目中themes文件夹中" class="headerlink" title="把下载的文件夹放入你的项目中themes文件夹中"></a>把下载的文件夹放入你的项目中themes文件夹中</h5><p><img src="https://pic.superbed.cn/item/5cb994323a213b04177c5ee0" alt>这里我下载的主题文件夹叫yilia</p>
-<h5 id="修改配置文件"><a href="#修改配置文件" class="headerlink" title="修改配置文件"></a>修改配置文件</h5><p>还是修改项目中的_config.yml文件，<strong>注意不要修改主题中的_config.yml文件</strong><br><img src="https://pic.superbed.cn/item/5cb994ea3a213b04177c63fe" alt><br>把theme后面的改成你自己主题的文件名</p>
-<p>然后重新</p>
-<pre><code>hexo clean
-hexo d
-</code></pre><p>重新部署，这样就完成了</p>
-<h5 id="主题推荐"><a href="#主题推荐" class="headerlink" title="主题推荐"></a>主题推荐</h5><p>引用知乎上面的回答<a href="https://www.zhihu.com/question/24422335" target="_blank" rel="noopener">hexo</a></p>
 
           
         
@@ -1390,6 +1753,177 @@ border-bottom: 1px solid #0593d3;
   
   
   <div class="post-block">
+    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2019/04/19/HEXO搭建博客(一)/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="name" content="liu xy">
+      <meta itemprop="description" content>
+      <meta itemprop="image" content="/images/avatar.png">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="LXY的个人博客">
+    </span>
+
+    
+      <header class="post-header">
+
+        
+        
+          <h1 class="post-title" itemprop="name headline">
+                
+                
+                <a href="/2019/04/19/HEXO搭建博客(一)/" class="post-title-link" itemprop="url">Hexo 搭建博客(一)</a>
+              
+            
+          </h1>
+        
+
+        <div class="post-meta">
+          <span class="post-time">
+
+            
+            
+            
+
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">Posted on</span>
+              
+
+              
+                
+              
+
+              <time title="Created: 2019-04-19 20:55:42 / Modified: 18:35:16" itemprop="dateCreated datePublished" datetime="2019-04-19T20:55:42+08:00">2019-04-19</time>
+            
+
+            
+              
+
+              
+            
+          </span>
+
+          
+
+          
+            
+            
+          
+
+          
+          
+
+          
+
+          
+
+          
+
+        </div>
+      </header>
+    
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+      
+
+      
+        
+          
+            <p><a href="https://www.bilibili.com/video/av44544186?t=1117" target="_blank" rel="noopener">参考bilibili视频</a></p>
+<p>基于MAC OS系统，所有以下在macOS Mojave下进行演示</p>
+<p>感谢 UP主<a href="https://www.codesheep.cn/" target="_blank" rel="noopener">CodeSheep</a></p>
+<p>###01 安装 Node.js<br><a href="https://www.codesheep.cn/" target="_blank" rel="noopener">官方网站</a></p>
+<pre><code>https://nodejs.org
+</code></pre><p><img src="https://pic.superbed.cn/item/5cb986b13a213b04177bdb04"></p>
+<p>###02 安装 Git(mac用户跳过)<br><a href="https://git-scm.com/downloads" target="_blank" rel="noopener">官方网站</a></p>
+<pre><code>https://git-scm.com/downloads
+</code></pre><p><img src="https://pic.superbed.cn/item/5cb987bb3a213b04177be3fa"></p>
+<p>所有东西按照官方的来就好，Git Bash下载下来就相当于Mac中的终端窗口了</p>
+<p>###03 安装 Hexo<br><img src="https://pic.superbed.cn/item/5cb988c93a213b04177bede9"><br>国内地址比较慢，所以用一下淘宝的镜像源</p>
+<pre><code>npm install -g cnpm --registry=https://registry.npm.taobao.org
+</code></pre><p><img src="https://pic.superbed.cn/item/5cb989893a213b04177bf74a"></p>
+<p>验证以下安装是否成功</p>
+<pre><code>hexo -v
+</code></pre><p><img src="https://pic.superbed.cn/item/5cb989de3a213b04177bfa2e"></p>
+<p>再创建文件夹</p>
+<pre><code>makdir blog
+cd blog/
+</code></pre><p>安装hexo</p>
+<pre><code>sudo hexo init
+</code></pre><p><img src="https://pic.superbed.cn/item/5cb98b043a213b04177c0672"></p>
+<h3 id="04-测试"><a href="#04-测试" class="headerlink" title="04 测试"></a>04 测试</h3><pre><code>1:hexo clean #清理缓存
+2:hexo g     #生成文件
+3:hexo s     #运行本地服务器
+4:hexo d     #上传到服务器
+</code></pre><p><img src="https://pic.superbed.cn/item/5cb98bb53a213b04177c0d9e" alt></p>
+<p>打开浏览器输入  <em>localhost:4000</em></p>
+<p><a href="https://pic.superbed.cn/item/5cb98c373a213b04177c125c" target="_blank" rel="noopener"><img src="https://pic.superbed.cn/item/5cb98c373a213b04177c125c" alt></a></p>
+<h2 id="本地环境搭建完成"><a href="#本地环境搭建完成" class="headerlink" title="本地环境搭建完成"></a>本地环境搭建完成</h2>
+          
+        
+      
+    </div>
+
+    
+
+    
+    
+    
+
+    
+
+    
+      
+    
+    
+
+    
+
+    <footer class="post-footer">
+      
+
+      
+
+      
+
+      
+      
+        <div class="post-eof"></div>
+      
+    </footer>
+  </div>
+  
+  
+  
+  </article>
+
+
+    
+      
+
+  
+
+  
+  
+  
+
+  
+
+  <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
+  
+  
+  
+  <div class="post-block">
     <link itemprop="mainEntityOfPage" href="http://yoursite.com/2019/04/19/HEXO搭建博客(二)/">
 
     <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
@@ -1551,7 +2085,7 @@ git config --global user.name &quot;Your Name&quot;
   
   
   <div class="post-block">
-    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2019/04/18/ASP.NET session 学习总结/">
+    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2019/04/19/HEXO搭建博客(三)/">
 
     <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
       <meta itemprop="name" content="liu xy">
@@ -1571,7 +2105,7 @@ git config --global user.name &quot;Your Name&quot;
           <h1 class="post-title" itemprop="name headline">
                 
                 
-                <a href="/2019/04/18/ASP.NET session 学习总结/" class="post-title-link" itemprop="url">ASP.NET session学习总结</a>
+                <a href="/2019/04/19/HEXO搭建博客(三)/" class="post-title-link" itemprop="url">Hexo 搭建博客(三)</a>
               
             
           </h1>
@@ -1596,24 +2130,12 @@ git config --global user.name &quot;Your Name&quot;
                 
               
 
-              <time title="Created: 2019-04-18 22:37:42" itemprop="dateCreated datePublished" datetime="2019-04-18T22:37:42+08:00">2019-04-18</time>
+              <time title="Created: 2019-04-19 20:55:42 / Modified: 18:35:17" itemprop="dateCreated datePublished" datetime="2019-04-19T20:55:42+08:00">2019-04-19</time>
             
 
             
               
 
-              
-                
-                <span class="post-meta-divider">|</span>
-                
-
-                <span class="post-meta-item-icon">
-                  <i class="fa fa-calendar-check-o"></i>
-                </span>
-                
-                  <span class="post-meta-item-text">Edited on</span>
-                
-                <time title="Modified: 2019-04-19 22:39:54" itemprop="dateModified" datetime="2019-04-19T22:39:54+08:00">2019-04-19</time>
               
             
           </span>
@@ -1649,355 +2171,16 @@ git config --global user.name &quot;Your Name&quot;
       
         
           
-            <h4 id="一、概述"><a href="#一、概述" class="headerlink" title="一、概述"></a>一、概述</h4><p>Session用于存储特定的用户会话所需的信息 。 Session对象的引入是为了弥补HTTP协议的不足，HTTP协议是一种无状态的协议。</p>
-<p>Session中文是“会话”的意思，在ASP.NET中代表了服务器与客户端之间的“会话”。Session的作用时间从用户到达某个特定的Web页开始，到该用户离开Web站点，或在程序中利用代码终止某个Session结束。引用Session 则可以让一个用户访问多个页面之间的切换也会保留该用户的信息。</p>
-<p>系统为每个访问者都设立一个独立的Session对象，用以存储Session变量，并且各个访问者的Session对象互不干扰。</p>
-<p>Session与Cookie是紧密相关的。 Session的使用要求用户浏览器必须支持Cookie，如果浏览器不支持使用Cookie，或者设置为禁用Cookie，那么将不能使用Session。<br>Session信息对客户来说，不同的用户用不同的Session信息来记录。当用户启用Session时，ASP自动产生一个SessionID.在新会话开始时，服务器将SessionID当做cookie存储在用户的浏览器中。</p>
-<h4 id="二、数据存放位置形式"><a href="#二、数据存放位置形式" class="headerlink" title="二、数据存放位置形式"></a>二、数据存放位置形式</h4><p>Web.config 配置语法</p>
-<pre><code>&lt;system.web&gt;
-&lt;sessionState mode=&quot;Off|InProc|StateServer|SQLServer&quot;
-cookieless=&quot;true|false&quot;
-timeout=&quot;number of minutes&quot;
-stateConnectionString=&quot;tcpip=server:port&quot;
-sqlConnectionString=&quot;sql connection string&quot;
-stateNetworkTimeout=&quot;number of seconds&quot;
-/&gt;
-&lt;/system.web&gt;
-</code></pre><p>mode：设置将session信息存储到哪里</p>
-<p>off：不使用session功能</p>
-<p>inproc：将session存储在IIS进程内，这是默认值，也是常用的（优点：简单，性能强。缺点：重启IIS服务器时session将丢失）</p>
-<p>true：使用cookieless模式，这时客户端的session信息不再使用cookie存储</p>
-<p>false使用cookie模式，默认值</p>
-<p>timeout 设置多少分钟后服务器自动放弃session信息，默认为20分钟</p>
-<h4 id="三、session的curd操作"><a href="#三、session的curd操作" class="headerlink" title="三、session的curd操作"></a>三、session的curd操作</h4><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br></pre></td><td class="code"><pre><span class="line">//写入</span><br><span class="line">Session[&quot;UserName&quot;] = &quot;joye888&quot;;</span><br><span class="line"></span><br><span class="line">//读取</span><br><span class="line">var userName = Session[&quot;UserName&quot;].ToString();</span><br><span class="line">Response.Write(userName);</span><br><span class="line"></span><br><span class="line">//遍历</span><br><span class="line">IEnumerator sessionEnum = Session.Keys.GetEnumerator();</span><br><span class="line">while (sessionEnum.MoveNext())</span><br><span class="line">&#123;Response.Write(Session[sessionEnum.Current.ToString()].ToString() + &quot; &quot;);&#125;</span><br><span class="line">//销毁</span><br><span class="line">Session.Abandon(); //结束会话</span><br><span class="line">Session.Clear();//不结束会话</span><br></pre></td></tr></table></figure>
-<h4 id="四、session原理图解"><a href="#四、session原理图解" class="headerlink" title="四、session原理图解"></a>四、session原理图解</h4><div style="height:200px"><br><img src="https://0d077ef9e74d8.cdn.sohucs.com/ro68VCm_jpg"><br></div>
+            <p>如何觉得系统配置的主题不好看，可以去自己找大神们分享的主题下载<br>这里我推荐一个github上star，fork数比较高的项目<br><a href="https://github.com/theme-next/hexo-theme-next/blob/master/docs/zh-CN/README.md" target="_blank" rel="noopener">Next</a><br>最简单的方式就是克隆整个仓库</p>
+<pre><code>git clone https://github.com/theme-next/hexo-theme-next themes/next
+</code></pre><h5 id="把下载的文件夹放入你的项目中themes文件夹中"><a href="#把下载的文件夹放入你的项目中themes文件夹中" class="headerlink" title="把下载的文件夹放入你的项目中themes文件夹中"></a>把下载的文件夹放入你的项目中themes文件夹中</h5><p><img src="https://pic.superbed.cn/item/5cb994323a213b04177c5ee0" alt>这里我下载的主题文件夹叫yilia</p>
+<h5 id="修改配置文件"><a href="#修改配置文件" class="headerlink" title="修改配置文件"></a>修改配置文件</h5><p>还是修改项目中的_config.yml文件，<strong>注意不要修改主题中的_config.yml文件</strong><br><img src="https://pic.superbed.cn/item/5cb994ea3a213b04177c63fe" alt><br>把theme后面的改成你自己主题的文件名</p>
+<p>然后重新</p>
+<pre><code>hexo clean
+hexo d
+</code></pre><p>重新部署，这样就完成了</p>
+<h5 id="主题推荐"><a href="#主题推荐" class="headerlink" title="主题推荐"></a>主题推荐</h5><p>引用知乎上面的回答<a href="https://www.zhihu.com/question/24422335" target="_blank" rel="noopener">hexo</a></p>
 
-<h4 id="五、session和cookie的区别"><a href="#五、session和cookie的区别" class="headerlink" title="五、session和cookie的区别"></a>五、<a href="https://www.zhihu.com/question/19786827" target="_blank" rel="noopener">session和cookie的区别</a></h4><p>1，session 在服务器端，cookie 在客户端（浏览器）<br>2，session 默认被存在在服务器的一个文件里（不是内存）<br>3，session 的运行依赖 session id，而 session id 是存在 cookie 中的，也就是说，如果浏览器禁用了 cookie ，同时 session 也会失效（但是可以通过其它方式实现，比如在 url 中传递 session_id）<br>4，session 可以放在 文件、数据库、或内存中都可以。<br>5，用户验证这种场合一般会用 session</p>
-
-          
-        
-      
-    </div>
-
-    
-
-    
-    
-    
-
-    
-
-    
-      
-    
-    
-
-    
-
-    <footer class="post-footer">
-      
-
-      
-
-      
-
-      
-      
-        <div class="post-eof"></div>
-      
-    </footer>
-  </div>
-  
-  
-  
-  </article>
-
-
-    
-      
-
-  
-
-  
-  
-  
-
-  
-
-  <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
-  
-  
-  
-  <div class="post-block">
-    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2019/04/18/MAC平台下Markdown软件/">
-
-    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
-      <meta itemprop="name" content="liu xy">
-      <meta itemprop="description" content>
-      <meta itemprop="image" content="/images/avatar.png">
-    </span>
-
-    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
-      <meta itemprop="name" content="LXY的个人博客">
-    </span>
-
-    
-      <header class="post-header">
-
-        
-        
-          <h1 class="post-title" itemprop="name headline">
-                
-                
-                <a href="/2019/04/18/MAC平台下Markdown软件/" class="post-title-link" itemprop="url">MAC平台下Markdown软件</a>
-              
-            
-          </h1>
-        
-
-        <div class="post-meta">
-          <span class="post-time">
-
-            
-            
-            
-
-            
-              <span class="post-meta-item-icon">
-                <i class="fa fa-calendar-o"></i>
-              </span>
-              
-                <span class="post-meta-item-text">Posted on</span>
-              
-
-              
-                
-              
-
-              <time title="Created: 2019-04-18 20:55:42" itemprop="dateCreated datePublished" datetime="2019-04-18T20:55:42+08:00">2019-04-18</time>
-            
-
-            
-              
-
-              
-                
-                <span class="post-meta-divider">|</span>
-                
-
-                <span class="post-meta-item-icon">
-                  <i class="fa fa-calendar-check-o"></i>
-                </span>
-                
-                  <span class="post-meta-item-text">Edited on</span>
-                
-                <time title="Modified: 2019-04-19 13:44:28" itemprop="dateModified" datetime="2019-04-19T13:44:28+08:00">2019-04-19</time>
-              
-            
-          </span>
-
-          
-
-          
-            
-            
-          
-
-          
-          
-
-          
-
-          
-
-          
-
-        </div>
-      </header>
-    
-
-    
-    
-    
-    <div class="post-body" itemprop="articleBody">
-
-      
-      
-
-      
-        
-          
-            <p>1、<a href="https://www.typora.io/" target="_blank" rel="noopener">Typora</a>(多平台)</p>
-<p><img src="https://s2.ax1x.com/2019/04/19/EpR6yD.jpg" alt="EpR6yD.jpg"></p>
-<p>简单而强大，可以即使浏览所写的内容，多种平台（beta版 OS X），Windows，Linux</p>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">[url]: https://www.typora.io/</span><br></pre></td></tr></table></figure>
-<p>2、<a href="https://github.com/lukakerr/Pine" target="_blank" rel="noopener">Pine(OS X)</a></p>
-<div align="center"><br>  <img src="https://s2.ax1x.com/2019/04/19/EpWQne.th.png" alt="EpWQne.png" border="0"><br></div>
-
-<p>这是一款基于 Swift 4.2 编写的 Markdown 编辑器，拥有主题定制、LaTeX 编写、自动补全、自动保存、版本控制、Touch Bar 支持等功能。</p>
-<p>3、<a href="https://www.jianshu.com/" target="_blank" rel="noopener">简书</a>一个很不错的博客平台，自动备份功能。可以直接从本地拖入照片生成链接，一直在不断优化。作为一个博客平台，需要注册账号后方能进行写作。</p>
-<div align="center"><br><a href="https://imgchr.com/i/EpoQnf" target="_blank" rel="noopener"><img src="https://s2.ax1x.com/2019/04/19/EpoQnf.th.jpg" alt="EpoQnf.jpg" border="0"></a><br></div>
-          
-        
-      
-    </div>
-
-    
-
-    
-    
-    
-
-    
-
-    
-      
-    
-    
-
-    
-
-    <footer class="post-footer">
-      
-
-      
-
-      
-
-      
-      
-        <div class="post-eof"></div>
-      
-    </footer>
-  </div>
-  
-  
-  
-  </article>
-
-
-    
-      
-
-  
-
-  
-  
-  
-
-  
-
-  <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
-  
-  
-  
-  <div class="post-block">
-    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2019/04/18/hexo 图片居中/">
-
-    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
-      <meta itemprop="name" content="liu xy">
-      <meta itemprop="description" content>
-      <meta itemprop="image" content="/images/avatar.png">
-    </span>
-
-    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
-      <meta itemprop="name" content="LXY的个人博客">
-    </span>
-
-    
-      <header class="post-header">
-
-        
-        
-          <h1 class="post-title" itemprop="name headline">
-                
-                
-                <a href="/2019/04/18/hexo 图片居中/" class="post-title-link" itemprop="url">Markdown 对图片居中处理</a>
-              
-            
-          </h1>
-        
-
-        <div class="post-meta">
-          <span class="post-time">
-
-            
-            
-            
-
-            
-              <span class="post-meta-item-icon">
-                <i class="fa fa-calendar-o"></i>
-              </span>
-              
-                <span class="post-meta-item-text">Posted on</span>
-              
-
-              
-                
-              
-
-              <time title="Created: 2019-04-18 20:55:42" itemprop="dateCreated datePublished" datetime="2019-04-18T20:55:42+08:00">2019-04-18</time>
-            
-
-            
-              
-
-              
-                
-                <span class="post-meta-divider">|</span>
-                
-
-                <span class="post-meta-item-icon">
-                  <i class="fa fa-calendar-check-o"></i>
-                </span>
-                
-                  <span class="post-meta-item-text">Edited on</span>
-                
-                <time title="Modified: 2019-04-19 18:35:11" itemprop="dateModified" datetime="2019-04-19T18:35:11+08:00">2019-04-19</time>
-              
-            
-          </span>
-
-          
-
-          
-            
-            
-          
-
-          
-          
-
-          
-
-          
-
-          
-
-        </div>
-      </header>
-    
-
-    
-    
-    
-    <div class="post-body" itemprop="articleBody">
-
-      
-      
-
-      
-        
-          
-            <p>Markdown图片加载一般都是<br>效果图：</p>
-<p><img src="https://s2.ax1x.com/2019/04/19/EpWQne.th.png" alt="EpWQne.png" border="0"></p>
-<h5 id="图片居中"><a href="#图片居中" class="headerlink" title="图片居中"></a>图片居中</h5><p>markdown没有支持图片居中，图片要么都是100%宽度，支持设置大小的一般也是左对齐，所以居中就需要HTML标签</p>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">&lt;div align=center&gt;</span><br><span class="line">[![](https://s2.ax1x.com/2019/04/19/EpWQne.th.png)](https://imgchr.com/i/EpWQne)</span><br><span class="line">&lt;/div&gt;</span><br></pre></td></tr></table></figure>
-<p>或者</p>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">&lt;div align=center&gt;</span><br><span class="line">  &lt;img src=&quot;https://s2.ax1x.com/2019/04/19/EpWQne.th.png&quot; alt=&quot;EpWQne.png&quot; border=&quot;0&quot; /&gt;&lt;/a&gt;</span><br><span class="line">&lt;/div&gt;</span><br></pre></td></tr></table></figure>
-<p>效果图如下</p>
-<div align="center"><br><img src="https://s2.ax1x.com/2019/04/19/EpWQne.th.png" alt="EpWQne.png" border="0"><br></div>
           
         
       
@@ -2041,6 +2224,10 @@ stateNetworkTimeout=&quot;number of seconds&quot;
   </section>
 
   
+  <nav class="pagination">
+    <span class="page-number current">1</span><a class="page-number" href="/page/2/">2</a><a class="extend next" rel="next" href="/page/2/"><i class="fa fa-angle-right" aria-label="Next page"></i></a>
+  </nav>
+
 
 
           </div>
@@ -2082,7 +2269,7 @@ stateNetworkTimeout=&quot;number of seconds&quot;
                 
                   <a href="/archives/">
                 
-                    <span class="site-state-item-count">9</span>
+                    <span class="site-state-item-count">13</span>
                     <span class="site-state-item-name">posts</span>
                   </a>
                 </div>

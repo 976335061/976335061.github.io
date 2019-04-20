@@ -198,16 +198,15 @@
 
 
   <meta name="description" content="&amp;#160; &amp;#160; &amp;#160; &amp;#160;不同的对象的生命周期是不一样的。实际上随着分配的对象增多， GC的时间与开销将会放大。所以，JVM的内存被分为了三个主要部分：新生代，老年代和永久代。  新生代&amp;#160; &amp;#160; &amp;#160; &amp;#160;新生代被默认放到Eden区。年轻代年轻代的目标就是尽可能快速的收集掉那些生命周期短的对象，对应的是Minor GC，每次 Minor">
-<meta name="keywords" content="Java 分代与GC机制">
 <meta property="og:type" content="article">
-<meta property="og:title" content="Java 学习日记(三)">
+<meta property="og:title" content="Java 分代与GC机制">
 <meta property="og:url" content="http://yoursite.com/2019/04/22/Java 学习日记(三)/index.html">
 <meta property="og:site_name" content="LXY的个人博客">
 <meta property="og:description" content="&amp;#160; &amp;#160; &amp;#160; &amp;#160;不同的对象的生命周期是不一样的。实际上随着分配的对象增多， GC的时间与开销将会放大。所以，JVM的内存被分为了三个主要部分：新生代，老年代和永久代。  新生代&amp;#160; &amp;#160; &amp;#160; &amp;#160;新生代被默认放到Eden区。年轻代年轻代的目标就是尽可能快速的收集掉那些生命周期短的对象，对应的是Minor GC，每次 Minor">
 <meta property="og:locale" content="default">
-<meta property="og:updated_time" content="2019-04-20T05:29:08.416Z">
+<meta property="og:updated_time" content="2019-04-20T05:47:38.806Z">
 <meta name="twitter:card" content="summary">
-<meta name="twitter:title" content="Java 学习日记(三)">
+<meta name="twitter:title" content="Java 分代与GC机制">
 <meta name="twitter:description" content="&amp;#160; &amp;#160; &amp;#160; &amp;#160;不同的对象的生命周期是不一样的。实际上随着分配的对象增多， GC的时间与开销将会放大。所以，JVM的内存被分为了三个主要部分：新生代，老年代和永久代。  新生代&amp;#160; &amp;#160; &amp;#160; &amp;#160;新生代被默认放到Eden区。年轻代年轻代的目标就是尽可能快速的收集掉那些生命周期短的对象，对应的是Minor GC，每次 Minor">
 
 
@@ -226,7 +225,7 @@
   };
 </script>
 
-  <title>Java 学习日记(三) | LXY的个人博客</title>
+  <title>Java 分代与GC机制 | LXY的个人博客</title>
   
 
 
@@ -443,7 +442,7 @@
 
         
         
-          <h1 class="post-title" itemprop="name headline">Java 学习日记(三)
+          <h1 class="post-title" itemprop="name headline">Java 分代与GC机制
 
               
             
@@ -486,7 +485,7 @@
                 
                   <span class="post-meta-item-text">Edited on</span>
                 
-                <time title="Modified: 2019-04-20 13:29:08" itemprop="dateModified" datetime="2019-04-20T13:29:08+08:00">2019-04-20</time>
+                <time title="Modified: 2019-04-20 13:47:38" itemprop="dateModified" datetime="2019-04-20T13:47:38+08:00">2019-04-20</time>
               
             
           </span>
@@ -556,12 +555,6 @@
 
     <footer class="post-footer">
       
-        <div class="post-tags">
-          
-            <a href="/tags/Java-分代与GC机制/" rel="tag"># Java 分代与GC机制</a>
-          
-        </div>
-      
 
       
       
@@ -571,8 +564,8 @@
         <div class="post-nav">
           <div class="post-nav-next post-nav-item">
             
-              <a href="/2019/04/21/Java 学习日记(二)/" rel="next" title="Java 学习日记(二)">
-                <i class="fa fa-chevron-left"></i> Java 学习日记(二)
+              <a href="/2019/04/22/谷歌助手安装/" rel="next" title="Google助手">
+                <i class="fa fa-chevron-left"></i> Google助手
               </a>
             
           </div>
@@ -580,10 +573,6 @@
           <span class="post-nav-divider"></span>
 
           <div class="post-nav-prev post-nav-item">
-            
-              <a href="/2019/04/22/谷歌助手安装/" rel="prev" title="Google助手">
-                Google助手 <i class="fa fa-chevron-right"></i>
-              </a>
             
           </div>
         </div>
@@ -653,23 +642,6 @@
 
               
 
-              
-                
-                
-                <div class="site-state-item site-state-tags">
-                  
-                    
-                    
-                      
-                    
-                      
-                    
-                      
-                    
-                    <span class="site-state-item-count">3</span>
-                    <span class="site-state-item-name">tags</span>
-                  
-                </div>
               
             </nav>
           

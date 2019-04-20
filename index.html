@@ -422,175 +422,6 @@
   
   
   <div class="post-block">
-    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2019/04/22/Java 学习日记(三)/">
-
-    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
-      <meta itemprop="name" content="liu xy">
-      <meta itemprop="description" content>
-      <meta itemprop="image" content="/images/avatar.png">
-    </span>
-
-    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
-      <meta itemprop="name" content="LXY的个人博客">
-    </span>
-
-    
-      <header class="post-header">
-
-        
-        
-          <h1 class="post-title" itemprop="name headline">
-                
-                
-                <a href="/2019/04/22/Java 学习日记(三)/" class="post-title-link" itemprop="url">Java 分代与GC机制</a>
-              
-            
-          </h1>
-        
-
-        <div class="post-meta">
-          <span class="post-time">
-
-            
-            
-            
-
-            
-              <span class="post-meta-item-icon">
-                <i class="fa fa-calendar-o"></i>
-              </span>
-              
-                <span class="post-meta-item-text">Posted on</span>
-              
-
-              
-                
-              
-
-              <time title="Created: 2019-04-22 00:12:34" itemprop="dateCreated datePublished" datetime="2019-04-22T00:12:34+08:00">2019-04-22</time>
-            
-
-            
-              
-
-              
-                
-                <span class="post-meta-divider">|</span>
-                
-
-                <span class="post-meta-item-icon">
-                  <i class="fa fa-calendar-check-o"></i>
-                </span>
-                
-                  <span class="post-meta-item-text">Edited on</span>
-                
-                <time title="Modified: 2019-04-20 13:47:38" itemprop="dateModified" datetime="2019-04-20T13:47:38+08:00">2019-04-20</time>
-              
-            
-          </span>
-
-          
-
-          
-            
-            
-          
-
-          
-          
-
-          
-
-          
-
-          
-
-        </div>
-      </header>
-    
-
-    
-    
-    
-    <div class="post-body" itemprop="articleBody">
-
-      
-      
-
-      
-        
-          
-            <p>&#160; &#160; &#160; &#160;不同的对象的生命周期是不一样的。实际上随着分配的对象增多， GC的时间与开销将会放大。所以，JVM的内存被分为了三个主要部分：新生代，老年代和永久代。</p>
-<ul>
-<li>新生代<br>&#160; &#160; &#160; &#160;新生代被默认放到<code>Eden</code>区。年轻代年轻代的目标就是尽可能快速的收集掉那些生命周期短的对象，对应的是Minor GC，每次 Minor GC 会清理年轻代的内存，算法采用效率较高的复制算法，频繁的操作，但是会浪费内存空间。当“年轻代”区域存放满对象后，就将对象存放到年老代区域。</li>
-<li>年老代<br>&#160; &#160; &#160; &#160;在年轻代中经历了N(默认15)次垃圾回收后仍然存活的对象，就会被放到年老代中。因此，可以认为年老代中存放的都是一些生命周期较长的对象。年老代对象越来越多，我们就需要启动Major GC和Full GC(全量回收)，来一次大扫除，全面清理年轻代区域和年老代区域。</li>
-<li>永久代<br>&#160; &#160; &#160; &#160;永久代位于方法区，用于存放静态文件，如Java类、方法等。持久代对垃圾回收没有显著影响</li>
-</ul>
-<p><code>Minor GC</code>:<br>　　用于清理年轻代区域。Eden区满了就会触发一次Minor GC。清理无用对象，将有用对象复制到“Survivor1”、“Survivor2”区中(这两个区，大小空间也相同，同一时刻Survivor1和Survivor2只有一个在用，一个为空)<br><code>Major GC</code>：<br>&#160; &#160; &#160; &#160;用于清理老年代区域。<br><code>Full GC</code>：<br>　　用于清理年轻代、年老代区域。 成本较高，会对系统性能产生影响。</p>
-<p><strong>小结</strong></p>
-<ul>
-<li>1、新创建的对象，绝大多数都会存储在Eden中</li>
-<li>2、当Eden满了（达到一定比例）不能创建新对象，则触发垃圾回收（GC），将无用对象清理掉，然后剩余对象复制到某个Survivor中，如S1，同时清空Eden区</li>
-<li>3、当Eden区再次满了，会将S1中的不能清空的对象存到另外一个Survivor中，如S2，同时将Eden区中的不能清空的对象，也复制到S1中，保证Eden和S1，均被清空。</li>
-<li>4、重复多次(默认15次)Survivor中没有被清理的对象，则会复制到老年代Old(Tenured)区中，</li>
-<li>5、当Old区满了，则会触发一个一次完整地垃圾回收（FullGC），之前新生代的垃圾回收称为（minorGC）</li>
-</ul>
-
-          
-        
-      
-    </div>
-
-    
-
-    
-    
-    
-
-    
-
-    
-      
-    
-    
-
-    
-
-    <footer class="post-footer">
-      
-
-      
-
-      
-
-      
-      
-        <div class="post-eof"></div>
-      
-    </footer>
-  </div>
-  
-  
-  
-  </article>
-
-
-    
-      
-
-  
-
-  
-  
-  
-
-  
-
-  <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
-  
-  
-  
-  <div class="post-block">
     <link itemprop="mainEntityOfPage" href="http://yoursite.com/2019/04/22/谷歌助手安装/">
 
     <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
@@ -653,7 +484,7 @@
                 
                   <span class="post-meta-item-text">Edited on</span>
                 
-                <time title="Modified: 2019-04-20 13:47:26" itemprop="dateModified" datetime="2019-04-20T13:47:26+08:00">2019-04-20</time>
+                <time title="Modified: 2019-04-20 13:51:47" itemprop="dateModified" datetime="2019-04-20T13:51:47+08:00">2019-04-20</time>
               
             
           </span>
@@ -690,6 +521,175 @@
         
           
             <p><img src="https://pic.superbed.cn/item/5cbaa8833a213b0417851339" alt><br>&#160;&#160;&#160;&#160;仅为香港地区用户提供谷歌chrome商店，gmail邮箱提供加速服务，解决偶尔打不开的问题<br>&#160;&#160;&#160;&#160;仅为学生，外贸人群，chrome扩展商店用户等需要的用户，提供加速服务。<br>&#160;&#160;&#160;&#160;<a href="http://www.ggfwzs.com/" target="_blank" rel="noopener">谷歌访问助手</a></p>
+
+          
+        
+      
+    </div>
+
+    
+
+    
+    
+    
+
+    
+
+    
+      
+    
+    
+
+    
+
+    <footer class="post-footer">
+      
+
+      
+
+      
+
+      
+      
+        <div class="post-eof"></div>
+      
+    </footer>
+  </div>
+  
+  
+  
+  </article>
+
+
+    
+      
+
+  
+
+  
+  
+  
+
+  
+
+  <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
+  
+  
+  
+  <div class="post-block">
+    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2019/04/22/Java 学习日记(三)/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="name" content="liu xy">
+      <meta itemprop="description" content>
+      <meta itemprop="image" content="/images/avatar.png">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="LXY的个人博客">
+    </span>
+
+    
+      <header class="post-header">
+
+        
+        
+          <h1 class="post-title" itemprop="name headline">
+                
+                
+                <a href="/2019/04/22/Java 学习日记(三)/" class="post-title-link" itemprop="url">Java 分代与GC机制</a>
+              
+            
+          </h1>
+        
+
+        <div class="post-meta">
+          <span class="post-time">
+
+            
+            
+            
+
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">Posted on</span>
+              
+
+              
+                
+              
+
+              <time title="Created: 2019-04-22 00:12:34" itemprop="dateCreated datePublished" datetime="2019-04-22T00:12:34+08:00">2019-04-22</time>
+            
+
+            
+              
+
+              
+                
+                <span class="post-meta-divider">|</span>
+                
+
+                <span class="post-meta-item-icon">
+                  <i class="fa fa-calendar-check-o"></i>
+                </span>
+                
+                  <span class="post-meta-item-text">Edited on</span>
+                
+                <time title="Modified: 2019-04-20 13:52:02" itemprop="dateModified" datetime="2019-04-20T13:52:02+08:00">2019-04-20</time>
+              
+            
+          </span>
+
+          
+
+          
+            
+            
+          
+
+          
+          
+
+          
+
+          
+
+          
+
+        </div>
+      </header>
+    
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+      
+
+      
+        
+          
+            <p>&#160; &#160; &#160; &#160;不同的对象的生命周期是不一样的。实际上随着分配的对象增多， GC的时间与开销将会放大。所以，JVM的内存被分为了三个主要部分：新生代，老年代和永久代。</p>
+<ul>
+<li>新生代<br>&#160; &#160; &#160; &#160;新生代被默认放到<code>Eden</code>区。年轻代年轻代的目标就是尽可能快速的收集掉那些生命周期短的对象，对应的是Minor GC，每次 Minor GC 会清理年轻代的内存，算法采用效率较高的复制算法，频繁的操作，但是会浪费内存空间。当“年轻代”区域存放满对象后，就将对象存放到年老代区域。</li>
+<li>年老代<br>&#160; &#160; &#160; &#160;在年轻代中经历了N(默认15)次垃圾回收后仍然存活的对象，就会被放到年老代中。因此，可以认为年老代中存放的都是一些生命周期较长的对象。年老代对象越来越多，我们就需要启动Major GC和Full GC(全量回收)，来一次大扫除，全面清理年轻代区域和年老代区域。</li>
+<li>永久代<br>&#160; &#160; &#160; &#160;永久代位于方法区，用于存放静态文件，如Java类、方法等。持久代对垃圾回收没有显著影响</li>
+</ul>
+<p><code>Minor GC</code>:<br>　　用于清理年轻代区域。Eden区满了就会触发一次Minor GC。清理无用对象，将有用对象复制到“Survivor1”、“Survivor2”区中(这两个区，大小空间也相同，同一时刻Survivor1和Survivor2只有一个在用，一个为空)<br><code>Major GC</code>：<br>&#160; &#160; &#160; &#160;用于清理老年代区域。<br><code>Full GC</code>：<br>　　用于清理年轻代、年老代区域。 成本较高，会对系统性能产生影响。</p>
+<p><strong>小结</strong></p>
+<ul>
+<li>1、新创建的对象，绝大多数都会存储在Eden中</li>
+<li>2、当Eden满了（达到一定比例）不能创建新对象，则触发垃圾回收（GC），将无用对象清理掉，然后剩余对象复制到某个Survivor中，如S1，同时清空Eden区</li>
+<li>3、当Eden区再次满了，会将S1中的不能清空的对象存到另外一个Survivor中，如S2，同时将Eden区中的不能清空的对象，也复制到S1中，保证Eden和S1，均被清空。</li>
+<li>4、重复多次(默认15次)Survivor中没有被清理的对象，则会复制到老年代Old(Tenured)区中，</li>
+<li>5、当Old区满了，则会触发一个一次完整地垃圾回收（FullGC），之前新生代的垃圾回收称为（minorGC）</li>
+</ul>
 
           
         
@@ -808,7 +808,7 @@
                 
                   <span class="post-meta-item-text">Edited on</span>
                 
-                <time title="Modified: 2019-04-20 13:47:37" itemprop="dateModified" datetime="2019-04-20T13:47:37+08:00">2019-04-20</time>
+                <time title="Modified: 2019-04-20 13:52:03" itemprop="dateModified" datetime="2019-04-20T13:52:03+08:00">2019-04-20</time>
               
             
           </span>
@@ -985,7 +985,7 @@ public static void main(String[] args) {
                 
               
 
-              <time title="Created: 2019-04-20 20:55:42 / Modified: 13:47:29" itemprop="dateCreated datePublished" datetime="2019-04-20T20:55:42+08:00">2019-04-20</time>
+              <time title="Created: 2019-04-20 20:55:42 / Modified: 13:52:13" itemprop="dateCreated datePublished" datetime="2019-04-20T20:55:42+08:00">2019-04-20</time>
             
 
             
@@ -1226,7 +1226,7 @@ public static void main(String[] args) {
                 
               
 
-              <time title="Created: 2019-04-20 11:04:00 / Modified: 13:47:40" itemprop="dateCreated datePublished" datetime="2019-04-20T11:04:00+08:00">2019-04-20</time>
+              <time title="Created: 2019-04-20 11:04:00 / Modified: 13:52:01" itemprop="dateCreated datePublished" datetime="2019-04-20T11:04:00+08:00">2019-04-20</time>
             
 
             
@@ -1410,7 +1410,7 @@ public static void main(String[] args) {
                 
                   <span class="post-meta-item-text">Edited on</span>
                 
-                <time title="Modified: 2019-04-20 13:47:28" itemprop="dateModified" datetime="2019-04-20T13:47:28+08:00">2019-04-20</time>
+                <time title="Modified: 2019-04-20 13:52:12" itemprop="dateModified" datetime="2019-04-20T13:52:12+08:00">2019-04-20</time>
               
             
           </span>
@@ -1567,7 +1567,7 @@ public static void main(String[] args) {
                 
                   <span class="post-meta-item-text">Edited on</span>
                 
-                <time title="Modified: 2019-04-20 13:47:43" itemprop="dateModified" datetime="2019-04-20T13:47:43+08:00">2019-04-20</time>
+                <time title="Modified: 2019-04-20 13:51:57" itemprop="dateModified" datetime="2019-04-20T13:51:57+08:00">2019-04-20</time>
               
             
           </span>
@@ -1688,6 +1688,169 @@ cd blog/
   
   
   <div class="post-block">
+    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2019/04/19/HEXO搭建博客(三)/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="name" content="liu xy">
+      <meta itemprop="description" content>
+      <meta itemprop="image" content="/images/avatar.png">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="LXY的个人博客">
+    </span>
+
+    
+      <header class="post-header">
+
+        
+        
+          <h1 class="post-title" itemprop="name headline">
+                
+                
+                <a href="/2019/04/19/HEXO搭建博客(三)/" class="post-title-link" itemprop="url">Hexo 搭建博客(三)</a>
+              
+            
+          </h1>
+        
+
+        <div class="post-meta">
+          <span class="post-time">
+
+            
+            
+            
+
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">Posted on</span>
+              
+
+              
+                
+              
+
+              <time title="Created: 2019-04-19 20:55:42" itemprop="dateCreated datePublished" datetime="2019-04-19T20:55:42+08:00">2019-04-19</time>
+            
+
+            
+              
+
+              
+                
+                <span class="post-meta-divider">|</span>
+                
+
+                <span class="post-meta-item-icon">
+                  <i class="fa fa-calendar-check-o"></i>
+                </span>
+                
+                  <span class="post-meta-item-text">Edited on</span>
+                
+                <time title="Modified: 2019-04-20 13:51:59" itemprop="dateModified" datetime="2019-04-20T13:51:59+08:00">2019-04-20</time>
+              
+            
+          </span>
+
+          
+
+          
+            
+            
+          
+
+          
+          
+
+          
+
+          
+
+          
+
+        </div>
+      </header>
+    
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+      
+
+      
+        
+          
+            <p>如何觉得系统配置的主题不好看，可以去自己找大神们分享的主题下载<br>这里我推荐一个github上star，fork数比较高的项目<br><a href="https://github.com/theme-next/hexo-theme-next/blob/master/docs/zh-CN/README.md" target="_blank" rel="noopener">Next</a><br>最简单的方式就是克隆整个仓库</p>
+<pre><code>git clone https://github.com/theme-next/hexo-theme-next themes/next
+</code></pre><h5 id="把下载的文件夹放入你的项目中themes文件夹中"><a href="#把下载的文件夹放入你的项目中themes文件夹中" class="headerlink" title="把下载的文件夹放入你的项目中themes文件夹中"></a>把下载的文件夹放入你的项目中themes文件夹中</h5><p><img src="https://pic.superbed.cn/item/5cb994323a213b04177c5ee0" alt>这里我下载的主题文件夹叫yilia</p>
+<h5 id="修改配置文件"><a href="#修改配置文件" class="headerlink" title="修改配置文件"></a>修改配置文件</h5><p>还是修改项目中的_config.yml文件，<strong>注意不要修改主题中的_config.yml文件</strong><br><img src="https://pic.superbed.cn/item/5cb994ea3a213b04177c63fe" alt><br>把theme后面的改成你自己主题的文件名</p>
+<p>然后重新</p>
+<pre><code>hexo clean
+hexo d
+</code></pre><p>重新部署，这样就完成了</p>
+<h5 id="主题推荐"><a href="#主题推荐" class="headerlink" title="主题推荐"></a>主题推荐</h5><p>引用知乎上面的回答<a href="https://www.zhihu.com/question/24422335" target="_blank" rel="noopener">hexo</a></p>
+
+          
+        
+      
+    </div>
+
+    
+
+    
+    
+    
+
+    
+
+    
+      
+    
+    
+
+    
+
+    <footer class="post-footer">
+      
+
+      
+
+      
+
+      
+      
+        <div class="post-eof"></div>
+      
+    </footer>
+  </div>
+  
+  
+  
+  </article>
+
+
+    
+      
+
+  
+
+  
+  
+  
+
+  
+
+  <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
+  
+  
+  
+  <div class="post-block">
     <link itemprop="mainEntityOfPage" href="http://yoursite.com/2019/04/19/HEXO搭建博客(二)/">
 
     <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
@@ -1750,7 +1913,7 @@ cd blog/
                 
                   <span class="post-meta-item-text">Edited on</span>
                 
-                <time title="Modified: 2019-04-20 13:47:41" itemprop="dateModified" datetime="2019-04-20T13:47:41+08:00">2019-04-20</time>
+                <time title="Modified: 2019-04-20 13:52:00" itemprop="dateModified" datetime="2019-04-20T13:52:00+08:00">2019-04-20</time>
               
             
           </span>
@@ -1923,7 +2086,7 @@ git config --global user.name &quot;Your Name&quot;
                 
                   <span class="post-meta-item-text">Edited on</span>
                 
-                <time title="Modified: 2019-04-20 13:47:45" itemprop="dateModified" datetime="2019-04-20T13:47:45+08:00">2019-04-20</time>
+                <time title="Modified: 2019-04-20 13:51:56" itemprop="dateModified" datetime="2019-04-20T13:51:56+08:00">2019-04-20</time>
               
             
           </span>
@@ -2140,169 +2303,6 @@ border-bottom: 1px solid #0593d3;
 
 
     
-      
-
-  
-
-  
-  
-  
-
-  
-
-  <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
-  
-  
-  
-  <div class="post-block">
-    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2019/04/19/HEXO搭建博客(三)/">
-
-    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
-      <meta itemprop="name" content="liu xy">
-      <meta itemprop="description" content>
-      <meta itemprop="image" content="/images/avatar.png">
-    </span>
-
-    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
-      <meta itemprop="name" content="LXY的个人博客">
-    </span>
-
-    
-      <header class="post-header">
-
-        
-        
-          <h1 class="post-title" itemprop="name headline">
-                
-                
-                <a href="/2019/04/19/HEXO搭建博客(三)/" class="post-title-link" itemprop="url">Hexo 搭建博客(三)</a>
-              
-            
-          </h1>
-        
-
-        <div class="post-meta">
-          <span class="post-time">
-
-            
-            
-            
-
-            
-              <span class="post-meta-item-icon">
-                <i class="fa fa-calendar-o"></i>
-              </span>
-              
-                <span class="post-meta-item-text">Posted on</span>
-              
-
-              
-                
-              
-
-              <time title="Created: 2019-04-19 20:55:42" itemprop="dateCreated datePublished" datetime="2019-04-19T20:55:42+08:00">2019-04-19</time>
-            
-
-            
-              
-
-              
-                
-                <span class="post-meta-divider">|</span>
-                
-
-                <span class="post-meta-item-icon">
-                  <i class="fa fa-calendar-check-o"></i>
-                </span>
-                
-                  <span class="post-meta-item-text">Edited on</span>
-                
-                <time title="Modified: 2019-04-20 13:47:42" itemprop="dateModified" datetime="2019-04-20T13:47:42+08:00">2019-04-20</time>
-              
-            
-          </span>
-
-          
-
-          
-            
-            
-          
-
-          
-          
-
-          
-
-          
-
-          
-
-        </div>
-      </header>
-    
-
-    
-    
-    
-    <div class="post-body" itemprop="articleBody">
-
-      
-      
-
-      
-        
-          
-            <p>如何觉得系统配置的主题不好看，可以去自己找大神们分享的主题下载<br>这里我推荐一个github上star，fork数比较高的项目<br><a href="https://github.com/theme-next/hexo-theme-next/blob/master/docs/zh-CN/README.md" target="_blank" rel="noopener">Next</a><br>最简单的方式就是克隆整个仓库</p>
-<pre><code>git clone https://github.com/theme-next/hexo-theme-next themes/next
-</code></pre><h5 id="把下载的文件夹放入你的项目中themes文件夹中"><a href="#把下载的文件夹放入你的项目中themes文件夹中" class="headerlink" title="把下载的文件夹放入你的项目中themes文件夹中"></a>把下载的文件夹放入你的项目中themes文件夹中</h5><p><img src="https://pic.superbed.cn/item/5cb994323a213b04177c5ee0" alt>这里我下载的主题文件夹叫yilia</p>
-<h5 id="修改配置文件"><a href="#修改配置文件" class="headerlink" title="修改配置文件"></a>修改配置文件</h5><p>还是修改项目中的_config.yml文件，<strong>注意不要修改主题中的_config.yml文件</strong><br><img src="https://pic.superbed.cn/item/5cb994ea3a213b04177c63fe" alt><br>把theme后面的改成你自己主题的文件名</p>
-<p>然后重新</p>
-<pre><code>hexo clean
-hexo d
-</code></pre><p>重新部署，这样就完成了</p>
-<h5 id="主题推荐"><a href="#主题推荐" class="headerlink" title="主题推荐"></a>主题推荐</h5><p>引用知乎上面的回答<a href="https://www.zhihu.com/question/24422335" target="_blank" rel="noopener">hexo</a></p>
-
-          
-        
-      
-    </div>
-
-    
-
-    
-    
-    
-
-    
-
-    
-      
-    
-    
-
-    
-
-    <footer class="post-footer">
-      
-
-      
-
-      
-
-      
-      
-        <div class="post-eof"></div>
-      
-    </footer>
-  </div>
-  
-  
-  
-  </article>
-
-
-    
   </section>
 
   
@@ -2357,6 +2357,23 @@ hexo d
                 </div>
               
 
+              
+                
+                
+                <div class="site-state-item site-state-categories">
+                  
+                    
+                      <a href="/categories/">
+                    
+                  
+                    
+                    
+                      
+                    
+                    <span class="site-state-item-count">1</span>
+                    <span class="site-state-item-name">categories</span>
+                  </a>
+                </div>
               
 
               

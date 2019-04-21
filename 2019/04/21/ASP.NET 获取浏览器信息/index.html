@@ -197,17 +197,17 @@
 
 
 
-  <meta name="description" content="&amp;#160; &amp;#160; &amp;#160; &amp;#160;不同的对象的生命周期是不一样的。实际上随着分配的对象增多， GC的时间与开销将会放大。所以，JVM的内存被分为了三个主要部分：新生代，老年代和永久代。  新生代&amp;#160; &amp;#160; &amp;#160; &amp;#160;新生代被默认放到Eden区。年轻代年轻代的目标就是尽可能快速的收集掉那些生命周期短的对象，对应的是Minor GC，每次 Minor">
+  <meta name="description" content="&amp;#160; &amp;#160; &amp;#160; &amp;#160;用户能够使用Request的对象的Browse属性HttpBroweserCapabilities属性获得当前正在使用哪种类型的浏览器浏览网页，并可以获得该浏览器是否支持某些特定功能&amp;#160; &amp;#160; &amp;#160; &amp;#160;新建一个网站默认主页Default.aspx.在Default.aspx的Page_Load事件中先定义Htt">
 <meta property="og:type" content="article">
-<meta property="og:title" content="Java 分代与GC机制">
-<meta property="og:url" content="http://yoursite.com/2019/04/22/Java 学习日记(三)/index.html">
+<meta property="og:title" content="ASP.NET 获取浏览器信息">
+<meta property="og:url" content="http://yoursite.com/2019/04/21/ASP.NET 获取浏览器信息/index.html">
 <meta property="og:site_name" content="LXY的个人博客">
-<meta property="og:description" content="&amp;#160; &amp;#160; &amp;#160; &amp;#160;不同的对象的生命周期是不一样的。实际上随着分配的对象增多， GC的时间与开销将会放大。所以，JVM的内存被分为了三个主要部分：新生代，老年代和永久代。  新生代&amp;#160; &amp;#160; &amp;#160; &amp;#160;新生代被默认放到Eden区。年轻代年轻代的目标就是尽可能快速的收集掉那些生命周期短的对象，对应的是Minor GC，每次 Minor">
+<meta property="og:description" content="&amp;#160; &amp;#160; &amp;#160; &amp;#160;用户能够使用Request的对象的Browse属性HttpBroweserCapabilities属性获得当前正在使用哪种类型的浏览器浏览网页，并可以获得该浏览器是否支持某些特定功能&amp;#160; &amp;#160; &amp;#160; &amp;#160;新建一个网站默认主页Default.aspx.在Default.aspx的Page_Load事件中先定义Htt">
 <meta property="og:locale" content="default">
-<meta property="og:updated_time" content="2019-04-20T06:06:04.792Z">
+<meta property="og:updated_time" content="2019-04-21T15:03:59.784Z">
 <meta name="twitter:card" content="summary">
-<meta name="twitter:title" content="Java 分代与GC机制">
-<meta name="twitter:description" content="&amp;#160; &amp;#160; &amp;#160; &amp;#160;不同的对象的生命周期是不一样的。实际上随着分配的对象增多， GC的时间与开销将会放大。所以，JVM的内存被分为了三个主要部分：新生代，老年代和永久代。  新生代&amp;#160; &amp;#160; &amp;#160; &amp;#160;新生代被默认放到Eden区。年轻代年轻代的目标就是尽可能快速的收集掉那些生命周期短的对象，对应的是Minor GC，每次 Minor">
+<meta name="twitter:title" content="ASP.NET 获取浏览器信息">
+<meta name="twitter:description" content="&amp;#160; &amp;#160; &amp;#160; &amp;#160;用户能够使用Request的对象的Browse属性HttpBroweserCapabilities属性获得当前正在使用哪种类型的浏览器浏览网页，并可以获得该浏览器是否支持某些特定功能&amp;#160; &amp;#160; &amp;#160; &amp;#160;新建一个网站默认主页Default.aspx.在Default.aspx的Page_Load事件中先定义Htt">
 
 
 
@@ -215,7 +215,7 @@
 
   
   
-  <link rel="canonical" href="http://yoursite.com/2019/04/22/Java 学习日记(三)/">
+  <link rel="canonical" href="http://yoursite.com/2019/04/21/ASP.NET 获取浏览器信息/">
 
 
 
@@ -225,7 +225,7 @@
   };
 </script>
 
-  <title>Java 分代与GC机制 | LXY的个人博客</title>
+  <title>ASP.NET 获取浏览器信息 | LXY的个人博客</title>
   
 
 
@@ -425,7 +425,7 @@
   
   
   <div class="post-block">
-    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2019/04/22/Java 学习日记(三)/">
+    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2019/04/21/ASP.NET 获取浏览器信息/">
 
     <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
       <meta itemprop="name" content="liu xy">
@@ -442,7 +442,7 @@
 
         
         
-          <h1 class="post-title" itemprop="name headline">Java 分代与GC机制
+          <h1 class="post-title" itemprop="name headline">ASP.NET 获取浏览器信息
 
               
             
@@ -468,24 +468,12 @@
                 
               
 
-              <time title="Created: 2019-04-22 00:12:34" itemprop="dateCreated datePublished" datetime="2019-04-22T00:12:34+08:00">2019-04-22</time>
+              <time title="Created: 2019-04-21 22:55:12 / Modified: 23:03:59" itemprop="dateCreated datePublished" datetime="2019-04-21T22:55:12+08:00">2019-04-21</time>
             
 
             
               
 
-              
-                
-                <span class="post-meta-divider">|</span>
-                
-
-                <span class="post-meta-item-icon">
-                  <i class="fa fa-calendar-check-o"></i>
-                </span>
-                
-                  <span class="post-meta-item-text">Edited on</span>
-                
-                <time title="Modified: 2019-04-20 14:06:04" itemprop="dateModified" datetime="2019-04-20T14:06:04+08:00">2019-04-20</time>
               
             
           </span>
@@ -502,7 +490,7 @@
                 <span class="post-meta-item-text">In</span>
               
               
-                <span itemprop="about" itemscope itemtype="http://schema.org/Thing"><a href="/categories/Java-学习日记/" itemprop="url" rel="index"><span itemprop="name">Java 学习日记</span></a></span>
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing"><a href="/categories/ASP-NET/" itemprop="url" rel="index"><span itemprop="name">ASP.NET</span></a></span>
 
                 
                 
@@ -537,22 +525,22 @@
       
 
       
-        <p>&#160; &#160; &#160; &#160;不同的对象的生命周期是不一样的。实际上随着分配的对象增多， GC的时间与开销将会放大。所以，JVM的内存被分为了三个主要部分：新生代，老年代和永久代。</p>
-<ul>
-<li>新生代<br>&#160; &#160; &#160; &#160;新生代被默认放到<code>Eden</code>区。年轻代年轻代的目标就是尽可能快速的收集掉那些生命周期短的对象，对应的是Minor GC，每次 Minor GC 会清理年轻代的内存，算法采用效率较高的复制算法，频繁的操作，但是会浪费内存空间。当“年轻代”区域存放满对象后，就将对象存放到年老代区域。</li>
-<li>年老代<br>&#160; &#160; &#160; &#160;在年轻代中经历了N(默认15)次垃圾回收后仍然存活的对象，就会被放到年老代中。因此，可以认为年老代中存放的都是一些生命周期较长的对象。年老代对象越来越多，我们就需要启动Major GC和Full GC(全量回收)，来一次大扫除，全面清理年轻代区域和年老代区域。</li>
-<li>永久代<br>&#160; &#160; &#160; &#160;永久代位于方法区，用于存放静态文件，如Java类、方法等。持久代对垃圾回收没有显著影响</li>
-</ul>
-<p><code>Minor GC</code>:<br>　　用于清理年轻代区域。Eden区满了就会触发一次Minor GC。清理无用对象，将有用对象复制到“Survivor1”、“Survivor2”区中(这两个区，大小空间也相同，同一时刻Survivor1和Survivor2只有一个在用，一个为空)<br><code>Major GC</code>：<br>&#160; &#160; &#160; &#160;用于清理老年代区域。<br><code>Full GC</code>：<br>　　用于清理年轻代、年老代区域。 成本较高，会对系统性能产生影响。</p>
-<p><strong>小结</strong></p>
-<ul>
-<li>1、新创建的对象，绝大多数都会存储在Eden中</li>
-<li>2、当Eden满了（达到一定比例）不能创建新对象，则触发垃圾回收（GC），将无用对象清理掉，然后剩余对象复制到某个Survivor中，如S1，同时清空Eden区</li>
-<li>3、当Eden区再次满了，会将S1中的不能清空的对象存到另外一个Survivor中，如S2，同时将Eden区中的不能清空的对象，也复制到S1中，保证Eden和S1，均被清空。</li>
-<li>4、重复多次(默认15次)Survivor中没有被清理的对象，则会复制到老年代Old(Tenured)区中，</li>
-<li>5、当Old区满了，则会触发一个一次完整地垃圾回收（FullGC），之前新生代的垃圾回收称为（minorGC）</li>
-</ul>
-
+        <p>&#160; &#160; &#160; &#160;用户能够使用Request的对象的Browse属性<code>HttpBroweserCapabilities</code>属性获得当前正在使用哪种类型的浏览器浏览网页，并可以获得该浏览器是否支持某些特定功能<br>&#160; &#160; &#160; &#160;新建一个网站默认主页Default.aspx.在Default.aspx的Page_Load事件中先定义HttpBrowser-Capabilities的类对象用于获取Request对象属性的Browser的属性返回值，代码如下:</p>
+<pre><code>protected void Page_Load(object sender, EventArgs e)
+{
+    HttpBrowserCapabilities b = Request.Browser;
+    Response.Write(&quot;客户端浏览器信息&quot;);
+    Response.Write(&quot;&lt;hr&gt;&quot;);
+    Response.Write(&quot;类型：&quot;+b.Type+&quot;&lt;br&gt;&quot;);
+    Response.Write(&quot;名称：&quot;+b.Browser+&quot;&lt;br&gt;&quot;);
+    Response.Write(&quot;版本：&quot;+b.Version+&quot;&lt;br&gt;&quot;);
+    Response.Write(&quot;操作平台：&quot;+b.Platform+&quot;&lt;br&gt;&quot;);
+    Response.Write(&quot;是否支持框架：&quot;+b.Frames+&quot;&lt;br&gt;&quot;);
+    Response.Write(&quot;是否支持表格&quot;+b.Tables+&quot;&lt;br&gt;&quot;);
+    Response.Write(&quot;是否支持COOKIES&quot;+b.Cookies+&quot;&lt;br&gt;&quot;);
+    Response.Write(&quot;&lt;hr&gt;&quot;);
+}    
+</code></pre>
       
     </div>
 
@@ -582,8 +570,8 @@
         <div class="post-nav">
           <div class="post-nav-next post-nav-item">
             
-              <a href="/2019/04/22/谷歌助手安装/" rel="next" title="Google助手">
-                <i class="fa fa-chevron-left"></i> Google助手
+              <a href="/2019/04/21/Java 学习日记(二)/" rel="next" title="Java GC机制总结">
+                <i class="fa fa-chevron-left"></i> Java GC机制总结
               </a>
             
           </div>
@@ -591,6 +579,10 @@
           <span class="post-nav-divider"></span>
 
           <div class="post-nav-prev post-nav-item">
+            
+              <a href="/2019/04/22/谷歌助手安装/" rel="prev" title="Google助手">
+                Google助手 <i class="fa fa-chevron-right"></i>
+              </a>
             
           </div>
         </div>

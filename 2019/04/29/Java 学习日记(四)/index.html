@@ -197,22 +197,22 @@
 
 
 
-  <meta name="description" content="转载自CodeSheep #####前言&amp;#160; &amp;#160; &amp;#160; &amp;#160;Java中，Object是所有类的父类，没有写extends Object,却默认继承Object #####继承自Object首先我们来验证一下 Object是不是所有类的父类，随便新建一个Java类，如下图：从上面的代码可以看出， newMyClass()打点之后可以选择调用的方法有很多，我们定义的">
+  <meta name="description" content="转载自CodeSheep 前言&amp;#160; &amp;#160; &amp;#160; &amp;#160;Java中，Object是所有类的父类，没有写extends Object,却默认继承Object 继承自Object首先我们来验证一下 Object是不是所有类的父类，随便新建一个Java类，如下图：从上面的代码可以看出， newMyClass()打点之后可以选择调用的方法有很多，我们定义的 MyClass类里面">
 <meta property="og:type" content="article">
 <meta property="og:title" content="Java类是如何继承Object的？">
 <meta property="og:url" content="http://yoursite.com/2019/04/29/Java 学习日记(四)/index.html">
 <meta property="og:site_name" content="LXY的个人博客">
-<meta property="og:description" content="转载自CodeSheep #####前言&amp;#160; &amp;#160; &amp;#160; &amp;#160;Java中，Object是所有类的父类，没有写extends Object,却默认继承Object #####继承自Object首先我们来验证一下 Object是不是所有类的父类，随便新建一个Java类，如下图：从上面的代码可以看出， newMyClass()打点之后可以选择调用的方法有很多，我们定义的">
+<meta property="og:description" content="转载自CodeSheep 前言&amp;#160; &amp;#160; &amp;#160; &amp;#160;Java中，Object是所有类的父类，没有写extends Object,却默认继承Object 继承自Object首先我们来验证一下 Object是不是所有类的父类，随便新建一个Java类，如下图：从上面的代码可以看出， newMyClass()打点之后可以选择调用的方法有很多，我们定义的 MyClass类里面">
 <meta property="og:locale" content="default">
 <meta property="og:image" content="https://s2.ax1x.com/2019/04/29/E3gRdU.png">
 <meta property="og:image" content="https://s2.ax1x.com/2019/04/29/E3WKaT.md.png">
 <meta property="og:image" content="https://ae01.alicdn.com/kf/HTB1SFWOTwHqK1RjSZFg7617JXXaJ.png">
 <meta property="og:image" content="https://ae01.alicdn.com/kf/HTB12vyOTwHqK1RjSZFg7617JXXaD.png">
 <meta property="og:image" content="https://ae01.alicdn.com/kf/HTB1GTmRTwHqK1RjSZFE763GMXXaA.png">
-<meta property="og:updated_time" content="2019-04-29T13:20:50.987Z">
+<meta property="og:updated_time" content="2019-04-29T13:25:48.478Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="Java类是如何继承Object的？">
-<meta name="twitter:description" content="转载自CodeSheep #####前言&amp;#160; &amp;#160; &amp;#160; &amp;#160;Java中，Object是所有类的父类，没有写extends Object,却默认继承Object #####继承自Object首先我们来验证一下 Object是不是所有类的父类，随便新建一个Java类，如下图：从上面的代码可以看出， newMyClass()打点之后可以选择调用的方法有很多，我们定义的">
+<meta name="twitter:description" content="转载自CodeSheep 前言&amp;#160; &amp;#160; &amp;#160; &amp;#160;Java中，Object是所有类的父类，没有写extends Object,却默认继承Object 继承自Object首先我们来验证一下 Object是不是所有类的父类，随便新建一个Java类，如下图：从上面的代码可以看出， newMyClass()打点之后可以选择调用的方法有很多，我们定义的 MyClass类里面">
 <meta name="twitter:image" content="https://s2.ax1x.com/2019/04/29/E3gRdU.png">
 
 
@@ -474,7 +474,7 @@
                 
               
 
-              <time title="Created: 2019-04-29 16:51:00 / Modified: 21:20:50" itemprop="dateCreated datePublished" datetime="2019-04-29T16:51:00+08:00">2019-04-29</time>
+              <time title="Created: 2019-04-29 16:51:00 / Modified: 21:25:48" itemprop="dateCreated datePublished" datetime="2019-04-29T16:51:00+08:00">2019-04-29</time>
             
 
             
@@ -532,17 +532,16 @@
 
       
         <p>转载自<a href="https://mp.weixin.qq.com/s?__biz=MzU4ODI1MjA3NQ==&amp;mid=2247484143&amp;idx=1&amp;sn=0898d689ac6bada6719917adcdb12135&amp;chksm=fdded42bcaa95d3da206f6bf71c23246e4b3677e454da483968f8d59f8434ae2187369a1ef90&amp;mpshare=1&amp;scene=23&amp;srcid=%23rd" target="_blank" rel="noopener">CodeSheep</a><br><img src="https://s2.ax1x.com/2019/04/29/E3gRdU.png" alt="E3gRdU.png"></p>
-<p>#####前言<br>&#160; &#160; &#160; &#160;<code>Java</code>中，<code>Object</code>是所有类的父类，没有写<code>extends Object</code>,却默认继承<code>Object</code></p>
-<p>#####继承自Object<br>首先我们来验证一下 Object是不是所有类的父类，随便新建一个Java类，如下图：<br><a href="https://imgchr.com/i/E3WKaT" target="_blank" rel="noopener"><img src="https://s2.ax1x.com/2019/04/29/E3WKaT.md.png" alt="E3WKaT.md.png"></a><br>从上面的代码可以看出， <code>newMyClass()</code>打点之后可以选择调用的方法有很多，我们定义的 <code>MyClass</code>类里面只有一个 main方法，那这些方法哪来的，显然是 <code>Object</code>里声明的，故 <code>MyClass</code>类的父类就是 <code>Object</code>，因此，在 <code>MyClass</code>中可以使用 <code>Object</code>类的 <code>public</code>或 <code>protected</code>资源。<br>另外，当 A类继承 <code>MyClass</code>类时，通过打点也可以调到 <code>Object</code>内的方法，这是继承的传递，好比 <code>Object</code>是 <code>MyClass</code>的“父亲”， <code>MyClass</code>是A类的“父亲”， <code>Object</code>是A类的“爷爷”，间接的继承了 <code>Object</code>。因此， <code>Object</code>是超类，是所有类的父类。</p>
-<p>#####推测可能的原因</p>
-<pre><code>要了解 Java类是如何默认继承Object的？ 的原因其实并不需要知道JVM的实现细节。只需了解一下对于这种虚拟机程序的基本原理即可。一般对于这种靠虚拟机运行的语言（如 Java、 C#等）会有两种方法处理默认继承问题。
+<h5 id="前言"><a href="#前言" class="headerlink" title="前言"></a>前言</h5><p>&#160; &#160; &#160; &#160;<code>Java</code>中，<code>Object</code>是所有类的父类，没有写<code>extends Object</code>,却默认继承<code>Object</code></p>
+<h5 id="继承自Object"><a href="#继承自Object" class="headerlink" title="继承自Object"></a>继承自Object</h5><p>首先我们来验证一下 Object是不是所有类的父类，随便新建一个Java类，如下图：<br><a href="https://imgchr.com/i/E3WKaT" target="_blank" rel="noopener"><img src="https://s2.ax1x.com/2019/04/29/E3WKaT.md.png" alt="E3WKaT.md.png"></a><br>从上面的代码可以看出， <code>newMyClass()</code>打点之后可以选择调用的方法有很多，我们定义的 <code>MyClass</code>类里面只有一个 main方法，那这些方法哪来的，显然是 <code>Object</code>里声明的，故 <code>MyClass</code>类的父类就是 <code>Object</code>，因此，在 <code>MyClass</code>中可以使用 <code>Object</code>类的 <code>public</code>或 <code>protected</code>资源。<br>另外，当 A类继承 <code>MyClass</code>类时，通过打点也可以调到 <code>Object</code>内的方法，这是继承的传递，好比 <code>Object</code>是 <code>MyClass</code>的“父亲”， <code>MyClass</code>是A类的“父亲”， <code>Object</code>是A类的“爷爷”，间接的继承了 <code>Object</code>。因此， <code>Object</code>是超类，是所有类的父类。</p>
+<h5 id="推测可能的原因"><a href="#推测可能的原因" class="headerlink" title="推测可能的原因"></a>推测可能的原因</h5><pre><code>要了解 Java类是如何默认继承Object的？ 的原因其实并不需要知道JVM的实现细节。只需了解一下对于这种虚拟机程序的基本原理即可。一般对于这种靠虚拟机运行的语言（如 Java、 C#等）会有两种方法处理默认继承问题。
 </code></pre><ul>
 <li><p>编译器处理<br>在编译源代码时，当一个类没有显式标明继承的父类时，编译器会为其指定一个默认的父类（一般为 Object），而交给虚拟机处理这个类时，由于这个类已经有一个默认的父类了，因此， VM仍然会按照常规的方法像处理其他类一样来处理这个类。对于这种情况，从编译后的二进制角度来看，所有的类都会有一个父类（后面可以以此依据来验证）。</p>
 </li>
 <li><p>JVM处理<br>编译器仍然按照实际代码进行编译，并不会做额外的处理，即如果一个类没有显式地继承于其他类时，编译后的代码仍然没有父类。然后由虚拟机运行二进制代码时，当遇到没有父类的类时，就会自动将这个类看成是 Object类的子类（一般这类语言的默认父类都是 Object）。</p>
 </li>
 </ul>
-<p>#####验证结论<br>从上面两种情况可以看出，第 1种情况 是在编译器上做的文章，也就是说，当没有父类时，由编译器在编译时自动为其指定一个父类。第 2种情况 是在虚拟机上做文章，也就是这个默认的父类是由虚拟机来添加的。</p>
+<h5 id="验证结论"><a href="#验证结论" class="headerlink" title="验证结论"></a>验证结论</h5><p>从上面两种情况可以看出，第 1种情况 是在编译器上做的文章，也就是说，当没有父类时，由编译器在编译时自动为其指定一个父类。第 2种情况 是在虚拟机上做文章，也就是这个默认的父类是由虚拟机来添加的。</p>
 <p>那么 Java是属于哪一种情况呢？其实这个答案很好得出。只需要随便找一个反编译工具，将 .class文件进行反编译即可得知编译器是如何编译的。</p>
 <p>就以上面代码为例，如果是第 1种情况，就算 <code>MyClass</code>没有父类，但由于编译器已经为 <code>MyClass</code>自动添加了一个<code>Object</code>父类，所以，在反编译后得到的源代码中的 <code>MyClass</code>类将会继承 <code>Object</code>类的。如果不是这种情况，那么就是第 2种情况。</p>
 <p>那么实际情况是什么样的呢？现在我们就将 MyClass.class反编译看看到底如何。</p>
@@ -557,7 +556,7 @@
 <p>猜想是 JDK版本的问题，于是把 JDK版本切换到7，使用 <code>jd-gui</code>和 <code>javap</code>反编译，接果和使用 JDK8反编译后的结果一样，也都没有 <code>extendsObject</code>。</p>
 <p>继续换版本，下载了半天把 JDK 6下载下来了，安装后把 JDK版本切换到 JDK 6。</p>
 <p>仍然在<code>CMD</code>窗口执行<code>javap</code> <code>MyClass&gt;MyClass.txt</code>，得到的<code>TXT</code>文件内容如下：<br><img src="https://ae01.alicdn.com/kf/HTB1GTmRTwHqK1RjSZFE763GMXXaA.png" alt><br>what？竟然有 <code>extendsObject</code>，<code>jd-gui</code>反编译后的依然没有。即， JDK 6之前使用 javap反编译后的 <code>MyClass</code>类显式的继承 <code>Object</code>，<code>JDK 7</code>以后没有； <code>jd-gui</code>反编译后的不管 <code>JDK</code>版本如何始终没有。我们以 java自带的工具为准。</p>
-<p>#####小   结<br>那么就是说<code>JDK 6</code>之前是编译器处理，<code>JDK 7</code>之后是虚拟机处理。 </p>
+<h5 id="小-结"><a href="#小-结" class="headerlink" title="小   结"></a>小   结</h5><p>那么就是说<code>JDK 6</code>之前是编译器处理，<code>JDK 7</code>之后是虚拟机处理。 </p>
 <p>但是仔细想想我们在编辑器里（ <code>IDEA</code>）打点时就能列出 <code>Object</code>类下的方法，此时还没轮到编译器和<code>jvm</code>，编辑器就已经知道<code>MyClass</code>类的父类是 <code>Object</code>类了，这是因为编辑器为我们做了一些智能处理。<br>    <a href="https://www.codesheep.cn/" target="_blank" rel="noopener">感谢前辈的指导</a></p>
 
       
@@ -589,8 +588,8 @@
         <div class="post-nav">
           <div class="post-nav-next post-nav-item">
             
-              <a href="/2019/04/22/谷歌助手安装/" rel="next" title="Google助手">
-                <i class="fa fa-chevron-left"></i> Google助手
+              <a href="/2019/04/22/Java 学习日记(三)/" rel="next" title="Java 分代与GC机制">
+                <i class="fa fa-chevron-left"></i> Java 分代与GC机制
               </a>
             
           </div>
@@ -641,8 +640,17 @@
       
 
       
+        <ul class="sidebar-nav motion-element">
+          <li class="sidebar-nav-toc sidebar-nav-active" data-target="post-toc-wrap">
+            Table of Contents
+          </li>
+          <li class="sidebar-nav-overview" data-target="site-overview-wrap">
+            Overview
+          </li>
+        </ul>
+      
 
-      <div class="site-overview-wrap sidebar-panel sidebar-panel-active">
+      <div class="site-overview-wrap sidebar-panel">
         <div class="site-overview">
           <div class="site-author motion-element" itemprop="author" itemscope itemtype="http://schema.org/Person">
             
@@ -750,6 +758,23 @@
         </div>
       </div>
 
+      
+      <!--noindex-->
+        <div class="post-toc-wrap motion-element sidebar-panel sidebar-panel-active">
+          <div class="post-toc">
+
+            
+            
+            
+            
+
+            
+              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-5"><a class="nav-link" href="#前言"><span class="nav-number">1.</span> <span class="nav-text">前言</span></a></li><li class="nav-item nav-level-5"><a class="nav-link" href="#继承自Object"><span class="nav-number">2.</span> <span class="nav-text">继承自Object</span></a></li><li class="nav-item nav-level-5"><a class="nav-link" href="#推测可能的原因"><span class="nav-number">3.</span> <span class="nav-text">推测可能的原因</span></a></li><li class="nav-item nav-level-5"><a class="nav-link" href="#验证结论"><span class="nav-number">4.</span> <span class="nav-text">验证结论</span></a></li><li class="nav-item nav-level-5"><a class="nav-link" href="#小-结"><span class="nav-number">5.</span> <span class="nav-text">小   结</span></a></li></ol></div>
+            
+
+          </div>
+        </div>
+      <!--/noindex-->
       
 
       

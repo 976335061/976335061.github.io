@@ -422,6 +422,281 @@
   
   
   <div class="post-block">
+    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2019/05/19/Java 学习日记(五)/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="name" content="liu xy">
+      <meta itemprop="description" content>
+      <meta itemprop="image" content="/images/avatar.png">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="LXY的个人博客">
+    </span>
+
+    
+      <header class="post-header">
+
+        
+        
+          <h1 class="post-title" itemprop="name headline">
+                
+                
+                <a href="/2019/05/19/Java 学习日记(五)/" class="post-title-link" itemprop="url">Java编程：获取键盘输入的三种方法</a>
+              
+            
+          </h1>
+        
+
+        <div class="post-meta">
+          <span class="post-time">
+
+            
+            
+            
+
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">Posted on</span>
+              
+
+              
+                
+              
+
+              <time title="Created: 2019-05-19 01:19:00 / Modified: 01:33:30" itemprop="dateCreated datePublished" datetime="2019-05-19T01:19:00+08:00">2019-05-19</time>
+            
+
+            
+              
+
+              
+            
+          </span>
+
+          
+            <span class="post-category">
+            
+              <span class="post-meta-divider">|</span>
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-folder-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">In</span>
+              
+              
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing"><a href="/categories/Java-学习日记/" itemprop="url" rel="index"><span itemprop="name">Java 学习日记</span></a></span>
+
+                
+                
+              
+            </span>
+          
+
+          
+            
+            
+          
+
+          
+          
+
+          
+
+          
+
+          
+
+        </div>
+      </header>
+    
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+      
+
+      
+        
+          
+            <h4 id="System-in-read"><a href="#System-in-read" class="headerlink" title="System.in.read"></a>System.in.read</h4><p>方法一：使用System.in.read()获取键盘输入，此方法只能一个字符一个字符的获取，获取到的变量类型为int，需要通过类型转换获取到自己期望的类型。该方法也会接收回车符（13）、换行符（10）。</p>
+<pre><code>package com.ips.io.keyboard;
+
+import java.io.IOException;
+
+public class Demo1 {
+
+public static void main(String[] args) {
+    try {
+        System.out.print(&quot;Enter a char :&quot;);
+        while(true){
+            char val = (char)System.in.read();
+            if(val == 13 || val == 10){
+//byte b = (byte)val;
+// System.out.println(b);
+            }else{
+                System.out.println(&quot;Your char is :&quot; + val + &quot;\r&quot;);
+            }
+        }
+    } catch (IOException e) {
+        e.printStackTrace();
+    }
+}
+
+}
+</code></pre><h4 id="BufferedReader"><a href="#BufferedReader" class="headerlink" title="BufferedReader"></a>BufferedReader</h4><p>方法二：使用BufferedReader类的readLine方法从控制台接收一个字符串。</p>
+<pre><code>package com.ips.io.keyboard;
+
+import java.io.BufferedReader;
+import java.io.IOException;
+import java.io.InputStreamReader;
+
+public class Demo2 {
+public static void main(String[] args) {
+    BufferedReader bufferedReader = null;
+    try {
+        bufferedReader = new BufferedReader(new InputStreamReader(System.in));
+        while(true){
+            System.out.print(&quot;Enter a String :&quot;);
+            String val = bufferedReader.readLine();
+            System.out.println(&quot;Your String is :&quot; + val + &quot;\r&quot;);
+        }
+    } catch (IOException e) {
+        e.printStackTrace();
+    } finally{
+        if(bufferedReader != null){
+            try {
+                bufferedReader.close();
+            } catch (IOException e) {
+                // TODO Auto-generated catch block
+                e.printStackTrace();
+            }
+            bufferedReader = null;
+        }
+    }
+}
+}
+</code></pre><h4 id="Scanner"><a href="#Scanner" class="headerlink" title="Scanner"></a>Scanner</h4><p>方法三：使用Scanner类实现键盘输入，而且该类提供了对应的类型转换方法，如：nextInt()、nextFloat()等，非常便于操作。其中nextInt()、nextFloat()方法不会接收回车符（13）、换行符（10），因此如果在nextInt()后增加nextLine()方法，对于nextInt()输入时的回车符（13）、换行符（10）会被nextLine()接收。对比代码1、代码2的执行结果，可以体会其中的区别。</p>
+<p>代码一</p>
+<pre><code>package com.ips.io.keyboard;
+
+import java.util.Scanner;
+
+public class Demo3 {
+public static void main(String[] args) {
+    Scanner sc = null;
+    try {
+         sc = new Scanner(System.in); 
+         System.out.println(&quot;请输入您的姓名：&quot;); 
+         String name = sc.nextLine(); 
+         System.out.println(&quot;请输入您的年龄：&quot;); 
+         int age = sc.nextInt(); 
+         System.out.println(&quot;请输入您的体重（kg）：&quot;); 
+         float salary = sc.nextFloat(); 
+         System.out.println(&quot;您的个人信息如下：&quot;); 
+         System.out.println(&quot;姓名：&quot;+name+&quot;\n&quot;+&quot;年龄：&quot;+age+&quot;\n&quot;+&quot;体重：&quot;+salary); 
+    } catch (Exception e) {
+        e.printStackTrace();
+    } finally {
+        if(sc != null){
+            sc.close();
+            sc = null;
+        }
+    }
+}
+}
+</code></pre><p>代码二</p>
+<pre><code>package com.ips.io.keyboard;
+
+import java.util.Scanner;
+
+public class Demo4 {
+public static void main(String[] args) {
+    Scanner sc = null;
+    try {
+         sc = new Scanner(System.in); 
+         System.out.println(&quot;请输入您的年龄：&quot;); 
+         int age = sc.nextInt(); 
+         System.out.println(&quot;请输入您的姓名：&quot;); 
+         String name = sc.nextLine(); 
+         System.out.println(&quot;请输入您的体重（kg）：&quot;); 
+         float salary = sc.nextFloat(); 
+         System.out.println(&quot;您的个人信息如下：&quot;); 
+         System.out.println(&quot;姓名：&quot;+name+&quot;\n&quot;+&quot;年龄：&quot;+age+&quot;\n&quot;+&quot;体重：&quot;+salary); 
+    } catch (Exception e) {
+        e.printStackTrace();
+    } finally {
+        if(sc != null){
+            sc.close();
+            sc = null;
+        }
+    }
+}
+}
+</code></pre><p>next()方法是不接收空格的，在接收到有效数据前，所有的空格或者tab键等输入被忽略，若有有效数据，则遇到这些键退出。nextLine()可以接收空格或者tab键，其输入应该以enter键结束。</p>
+
+          
+        
+      
+    </div>
+
+    
+
+    
+    
+    
+
+    
+
+    
+      
+    
+    
+
+    
+
+    <footer class="post-footer">
+      
+
+      
+
+      
+
+      
+      
+        <div class="post-eof"></div>
+      
+    </footer>
+  </div>
+  
+  
+  
+  </article>
+
+
+    
+      
+
+  
+
+  
+  
+  
+
+  
+
+  <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
+  
+  
+  
+  <div class="post-block">
     <link itemprop="mainEntityOfPage" href="http://yoursite.com/2019/04/29/Java 学习日记(四)/">
 
     <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
@@ -609,6 +884,179 @@
   
   
   <div class="post-block">
+    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2019/04/22/谷歌助手安装/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="name" content="liu xy">
+      <meta itemprop="description" content>
+      <meta itemprop="image" content="/images/avatar.png">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="LXY的个人博客">
+    </span>
+
+    
+      <header class="post-header">
+
+        
+        
+          <h1 class="post-title" itemprop="name headline">
+                
+                
+                <a href="/2019/04/22/谷歌助手安装/" class="post-title-link" itemprop="url">Google助手</a>
+              
+            
+          </h1>
+        
+
+        <div class="post-meta">
+          <span class="post-time">
+
+            
+            
+            
+
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">Posted on</span>
+              
+
+              
+                
+              
+
+              <time title="Created: 2019-04-22 00:12:34" itemprop="dateCreated datePublished" datetime="2019-04-22T00:12:34+08:00">2019-04-22</time>
+            
+
+            
+              
+
+              
+                
+                <span class="post-meta-divider">|</span>
+                
+
+                <span class="post-meta-item-icon">
+                  <i class="fa fa-calendar-check-o"></i>
+                </span>
+                
+                  <span class="post-meta-item-text">Edited on</span>
+                
+                <time title="Modified: 2019-04-20 13:57:03" itemprop="dateModified" datetime="2019-04-20T13:57:03+08:00">2019-04-20</time>
+              
+            
+          </span>
+
+          
+            <span class="post-category">
+            
+              <span class="post-meta-divider">|</span>
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-folder-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">In</span>
+              
+              
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing"><a href="/categories/杂项/" itemprop="url" rel="index"><span itemprop="name">杂项</span></a></span>
+
+                
+                
+              
+            </span>
+          
+
+          
+            
+            
+          
+
+          
+          
+
+          
+
+          
+
+          
+
+        </div>
+      </header>
+    
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+      
+
+      
+        
+          
+            <p><img src="https://pic.superbed.cn/item/5cbaa8833a213b0417851339" alt><br>&#160;&#160;&#160;&#160;仅为香港地区用户提供谷歌chrome商店，gmail邮箱提供加速服务，解决偶尔打不开的问题<br>&#160;&#160;&#160;&#160;仅为学生，外贸人群，chrome扩展商店用户等需要的用户，提供加速服务。<br>&#160;&#160;&#160;&#160;<a href="http://www.ggfwzs.com/" target="_blank" rel="noopener">谷歌访问助手</a></p>
+
+          
+        
+      
+    </div>
+
+    
+
+    
+    
+    
+
+    
+
+    
+      
+    
+    
+
+    
+
+    <footer class="post-footer">
+      
+
+      
+
+      
+
+      
+      
+        <div class="post-eof"></div>
+      
+    </footer>
+  </div>
+  
+  
+  
+  </article>
+
+
+    
+      
+
+  
+
+  
+  
+  
+
+  
+
+  <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
+  
+  
+  
+  <div class="post-block">
     <link itemprop="mainEntityOfPage" href="http://yoursite.com/2019/04/22/Java 学习日记(三)/">
 
     <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
@@ -740,179 +1188,6 @@
 <li>4、重复多次(默认15次)Survivor中没有被清理的对象，则会复制到老年代Old(Tenured)区中，</li>
 <li>5、当Old区满了，则会触发一个一次完整地垃圾回收（FullGC），之前新生代的垃圾回收称为（minorGC）</li>
 </ul>
-
-          
-        
-      
-    </div>
-
-    
-
-    
-    
-    
-
-    
-
-    
-      
-    
-    
-
-    
-
-    <footer class="post-footer">
-      
-
-      
-
-      
-
-      
-      
-        <div class="post-eof"></div>
-      
-    </footer>
-  </div>
-  
-  
-  
-  </article>
-
-
-    
-      
-
-  
-
-  
-  
-  
-
-  
-
-  <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
-  
-  
-  
-  <div class="post-block">
-    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2019/04/22/谷歌助手安装/">
-
-    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
-      <meta itemprop="name" content="liu xy">
-      <meta itemprop="description" content>
-      <meta itemprop="image" content="/images/avatar.png">
-    </span>
-
-    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
-      <meta itemprop="name" content="LXY的个人博客">
-    </span>
-
-    
-      <header class="post-header">
-
-        
-        
-          <h1 class="post-title" itemprop="name headline">
-                
-                
-                <a href="/2019/04/22/谷歌助手安装/" class="post-title-link" itemprop="url">Google助手</a>
-              
-            
-          </h1>
-        
-
-        <div class="post-meta">
-          <span class="post-time">
-
-            
-            
-            
-
-            
-              <span class="post-meta-item-icon">
-                <i class="fa fa-calendar-o"></i>
-              </span>
-              
-                <span class="post-meta-item-text">Posted on</span>
-              
-
-              
-                
-              
-
-              <time title="Created: 2019-04-22 00:12:34" itemprop="dateCreated datePublished" datetime="2019-04-22T00:12:34+08:00">2019-04-22</time>
-            
-
-            
-              
-
-              
-                
-                <span class="post-meta-divider">|</span>
-                
-
-                <span class="post-meta-item-icon">
-                  <i class="fa fa-calendar-check-o"></i>
-                </span>
-                
-                  <span class="post-meta-item-text">Edited on</span>
-                
-                <time title="Modified: 2019-04-20 13:57:03" itemprop="dateModified" datetime="2019-04-20T13:57:03+08:00">2019-04-20</time>
-              
-            
-          </span>
-
-          
-            <span class="post-category">
-            
-              <span class="post-meta-divider">|</span>
-            
-              <span class="post-meta-item-icon">
-                <i class="fa fa-folder-o"></i>
-              </span>
-              
-                <span class="post-meta-item-text">In</span>
-              
-              
-                <span itemprop="about" itemscope itemtype="http://schema.org/Thing"><a href="/categories/杂项/" itemprop="url" rel="index"><span itemprop="name">杂项</span></a></span>
-
-                
-                
-              
-            </span>
-          
-
-          
-            
-            
-          
-
-          
-          
-
-          
-
-          
-
-          
-
-        </div>
-      </header>
-    
-
-    
-    
-    
-    <div class="post-body" itemprop="articleBody">
-
-      
-      
-
-      
-        
-          
-            <p><img src="https://pic.superbed.cn/item/5cbaa8833a213b0417851339" alt><br>&#160;&#160;&#160;&#160;仅为香港地区用户提供谷歌chrome商店，gmail邮箱提供加速服务，解决偶尔打不开的问题<br>&#160;&#160;&#160;&#160;仅为学生，外贸人群，chrome扩展商店用户等需要的用户，提供加速服务。<br>&#160;&#160;&#160;&#160;<a href="http://www.ggfwzs.com/" target="_blank" rel="noopener">谷歌访问助手</a></p>
 
           
         
@@ -1975,7 +2250,7 @@ public static void main(String[] args) {
   
   
   <div class="post-block">
-    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2019/04/19/HEXO搭建博客(三)/">
+    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2019/04/19/Hexo 搭建博客(四)/">
 
     <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
       <meta itemprop="name" content="liu xy">
@@ -1995,7 +2270,7 @@ public static void main(String[] args) {
           <h1 class="post-title" itemprop="name headline">
                 
                 
-                <a href="/2019/04/19/HEXO搭建博客(三)/" class="post-title-link" itemprop="url">Hexo 搭建博客(三)</a>
+                <a href="/2019/04/19/Hexo 搭建博客(四)/" class="post-title-link" itemprop="url">Hexo 搭建博客(四)</a>
               
             
           </h1>
@@ -2037,7 +2312,7 @@ public static void main(String[] args) {
                 
                   <span class="post-meta-item-text">Edited on</span>
                 
-                <time title="Modified: 2019-04-20 13:57:28" itemprop="dateModified" datetime="2019-04-20T13:57:28+08:00">2019-04-20</time>
+                <time title="Modified: 2019-04-20 13:57:25" itemprop="dateModified" datetime="2019-04-20T13:57:25+08:00">2019-04-20</time>
               
             
           </span>
@@ -2091,206 +2366,146 @@ public static void main(String[] args) {
       
         
           
-            <p>如何觉得系统配置的主题不好看，可以去自己找大神们分享的主题下载<br>这里我推荐一个github上star，fork数比较高的项目<br><a href="https://github.com/theme-next/hexo-theme-next/blob/master/docs/zh-CN/README.md" target="_blank" rel="noopener">Next</a><br>最简单的方式就是克隆整个仓库</p>
-<pre><code>git clone https://github.com/theme-next/hexo-theme-next themes/next
-</code></pre><h5 id="把下载的文件夹放入你的项目中themes文件夹中"><a href="#把下载的文件夹放入你的项目中themes文件夹中" class="headerlink" title="把下载的文件夹放入你的项目中themes文件夹中"></a>把下载的文件夹放入你的项目中themes文件夹中</h5><p><img src="https://pic.superbed.cn/item/5cb994323a213b04177c5ee0" alt>这里我下载的主题文件夹叫yilia</p>
-<h5 id="修改配置文件"><a href="#修改配置文件" class="headerlink" title="修改配置文件"></a>修改配置文件</h5><p>还是修改项目中的_config.yml文件，<strong>注意不要修改主题中的_config.yml文件</strong><br><img src="https://pic.superbed.cn/item/5cb994ea3a213b04177c63fe" alt><br>把theme后面的改成你自己主题的文件名</p>
-<p>然后重新</p>
-<pre><code>hexo clean
-hexo d
-</code></pre><p>重新部署，这样就完成了</p>
-<h5 id="主题推荐"><a href="#主题推荐" class="headerlink" title="主题推荐"></a>主题推荐</h5><p>引用知乎上面的回答<a href="https://www.zhihu.com/question/24422335" target="_blank" rel="noopener">hexo</a></p>
+            <p>##Next 主题美化<br>前面写了hexo博客的配置，现在对主题进行一些美化操作</p>
+<h5 id="设置语言"><a href="#设置语言" class="headerlink" title="设置语言"></a>设置语言</h5><p>首先先设置博客站点的语言，这个是在站点配置文件，也就是根目录下的_config.yml设置的，找到language设置成中文：</p>
+<pre><code>language: zh-Hans
+</code></pre><h5 id="基本信息"><a href="#基本信息" class="headerlink" title="基本信息"></a>基本信息</h5><p>在站点配置文件的开头，填上自己博客的相应信息：</p>
+<pre><code>title: # 标题
+subtitle: # 副标题
+description: # 站点描述
+author: # 作者
+language: zh-Hans
+timezone:
+</code></pre><h5 id="主题设置"><a href="#主题设置" class="headerlink" title="主题设置"></a>主题设置</h5><p>Next已经自带了很多功能和集成了一些第三方服务，通过主题目录下的_config.yml就能对主题做一些设定及个性化。</p>
+<h5 id="设置主题的Scheme"><a href="#设置主题的Scheme" class="headerlink" title="设置主题的Scheme"></a>设置主题的Scheme</h5><p>Next自带了几种外观，在主题目录的_config.yml里找到scheme，我比较喜欢Mist，把前面的注释符#去掉即可：</p>
+<pre><code>#scheme: Muse
+scheme: Mist
+#scheme: Pisces
+#scheme: Gemini
+</code></pre><h5 id="菜单设置"><a href="#菜单设置" class="headerlink" title="菜单设置"></a>菜单设置</h5><p>我们可以看到首页有还有归档等菜单，这些在主题配置文件里设置，找到menu，把需要的菜单取消注释，我这里保留了categories分类，tags标签，archives归档，about关于，||后面的表示图标，使用Font Awesome图标名字。我就不作修改了：</p>
+<pre><code>menu:
+    home: / || home
+    categories: /categories/ || th
+    tags: /tags/ || tags
+    archives: /archives/ || archive
+    about: /about/ || user
+    #schedule: /schedule/ || calendar
+    #sitemap: /sitemap.xml || sitemap
+    #commonweal: /404/ || heartbeat
+</code></pre><p>另外，也可以自己添加菜单，但我暂时没有这个需要。</p>
+<h5 id="文章显示设置"><a href="#文章显示设置" class="headerlink" title="文章显示设置"></a>文章显示设置</h5><p>默认首页的文章会显示全文，在主题配置文件设置auto_excerpt为true再设置长度就会只显示你设置的字数了。</p>
+<pre><code>auto_excerpt:
+enable: true
+length: 100
+</code></pre><p>但是，官方是不推荐这种做法的，我这里用的方法是发表的文章的开头加上description，这样，文章就会显示这个摘要：</p>
+<pre><code>title: # 文章标题
+author: # 作者
+tags: 
+- Hexo
+- Next
+categories: 
+- Hexo
+- Next
+description: # 描述，首页文章显示的摘要
+date: 
+---
+</code></pre><p>这里的tags和categories就是给文章加上标签和分类，两者的区别就是categories是有层级的，像上面那样分类里Next就是Hexo的子类，Hexo是不支持指定多个同级分类的。</p>
+<h5 id="设置头像"><a href="#设置头像" class="headerlink" title="设置头像"></a>设置头像</h5><p>在source目录下新建一个images目录，放一张名为avatar.png的头像，修改主题配置文件的avatar字段：</p>
+<p>avatar: /images/avatar.png</p>
+<h5 id="设置博客favicon图标"><a href="#设置博客favicon图标" class="headerlink" title="设置博客favicon图标"></a>设置博客favicon图标</h5><p>在images目录下放置图标，我这里放了两种大小的ico图标，然后在主题配置文件找到favicon并修改：</p>
+<pre><code>favicon: 
+small: /images/favicon-16x16.ico
+medium: /images/favicon-32x32.ico
+#apple_touch_icon: /images/apple-touch-icon-next.png
+#safari_pinned_tab: /images/logo.svg
+#android_manifest: /images/manifest.json
+#ms_browserconfig: /images/browserconfig.xml
+</code></pre><h5 id="侧边栏社交链接"><a href="#侧边栏社交链接" class="headerlink" title="侧边栏社交链接"></a>侧边栏社交链接</h5><p>在主题配置文件找到social把需要的取消注释，然后填好你的链接就可以了，||后面的是图标名称，和菜单的一样，也是使用Font Awesome图标名字。</p>
+<pre><code>social:
+GitHub: https://github.com/JianFengY || github
+GMail: mailto:yjianfengxy@gmail.com || envelope
+#Google: https://plus.google.com/yourname || google
+#Twitter: https://twitter.com/yourname || twitter
+Facebook: https://www.facebook.com/jf.young.1 || facebook
+#VK Group: https://vk.com/yourname || vk
+#StackOverflow: https://stackoverflow.com/yourname || stack-overflow
+#YouTube: https://youtube.com/yourname || youtube
+#Instagram: https://instagram.com/yourname || instagram
+#Skype: skype:yourname?call|chat || skype
+</code></pre><p>你也可以自行添加其他社交方式，按照格式添加即可。</p>
+<h5 id="设置背景动画"><a href="#设置背景动画" class="headerlink" title="设置背景动画"></a>设置背景动画</h5><p>同样是主题配置文件，我这里用的是canvas_nest：</p>
+<pre><code># Canvas-nest
+canvas_nest: true
 
-          
-        
-      
-    </div>
+# three_waves
+three_waves: false
 
-    
+# canvas_lines
+canvas_lines: false
 
-    
-    
-    
-
-    
-
-    
-      
-    
-    
-
-    
-
-    <footer class="post-footer">
-      
-
-      
-
-      
-
-      
-      
-        <div class="post-eof"></div>
-      
-    </footer>
-  </div>
-  
-  
-  
-  </article>
-
-
-    
-      
-
-  
-
-  
-  
-  
-
-  
-
-  <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
-  
-  
-  
-  <div class="post-block">
-    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2019/04/19/HEXO搭建博客(二)/">
-
-    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
-      <meta itemprop="name" content="liu xy">
-      <meta itemprop="description" content>
-      <meta itemprop="image" content="/images/avatar.png">
-    </span>
-
-    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
-      <meta itemprop="name" content="LXY的个人博客">
-    </span>
-
-    
-      <header class="post-header">
-
-        
-        
-          <h1 class="post-title" itemprop="name headline">
-                
-                
-                <a href="/2019/04/19/HEXO搭建博客(二)/" class="post-title-link" itemprop="url">Hexo 搭建博客(二)</a>
-              
-            
-          </h1>
-        
-
-        <div class="post-meta">
-          <span class="post-time">
-
-            
-            
-            
-
-            
-              <span class="post-meta-item-icon">
-                <i class="fa fa-calendar-o"></i>
-              </span>
-              
-                <span class="post-meta-item-text">Posted on</span>
-              
-
-              
-                
-              
-
-              <time title="Created: 2019-04-19 20:55:42" itemprop="dateCreated datePublished" datetime="2019-04-19T20:55:42+08:00">2019-04-19</time>
-            
-
-            
-              
-
-              
-                
-                <span class="post-meta-divider">|</span>
-                
-
-                <span class="post-meta-item-icon">
-                  <i class="fa fa-calendar-check-o"></i>
-                </span>
-                
-                  <span class="post-meta-item-text">Edited on</span>
-                
-                <time title="Modified: 2019-04-20 13:57:17" itemprop="dateModified" datetime="2019-04-20T13:57:17+08:00">2019-04-20</time>
-              
-            
-          </span>
-
-          
-            <span class="post-category">
-            
-              <span class="post-meta-divider">|</span>
-            
-              <span class="post-meta-item-icon">
-                <i class="fa fa-folder-o"></i>
-              </span>
-              
-                <span class="post-meta-item-text">In</span>
-              
-              
-                <span itemprop="about" itemscope itemtype="http://schema.org/Thing"><a href="/categories/Hexo博客搭建之路/" itemprop="url" rel="index"><span itemprop="name">Hexo博客搭建之路</span></a></span>
-
-                
-                
-              
-            </span>
-          
-
-          
-            
-            
-          
-
-          
-          
-
-          
-
-          
-
-          
-
-        </div>
-      </header>
-    
-
-    
-    
-    
-    <div class="post-body" itemprop="articleBody">
-
-      
-      
-
-      
-        
-          
-            <p>前面介绍了本地环境的搭建，这次部署到远端服务器，(国内也有许多免费的环境)这里我们选择Github<br>，由于是国外服务器所以访问速度有些慢</p>
-<h4 id="01-安装建立-Github账户"><a href="#01-安装建立-Github账户" class="headerlink" title="01 安装建立 Github账户"></a>01 安装建立 <a href="https://github.com/" target="_blank" rel="noopener">Github账户</a></h4><p><img src="https://pic.superbed.cn/item/5cb98dc23a213b04177c238f" alt></p>
-<p>创建一个仓库<br><img src="https://pic.superbed.cn/item/5cb98e6a3a213b04177c2aa0" alt></p>
-<h4 id="02-安装git工具"><a href="#02-安装git工具" class="headerlink" title="02 安装git工具"></a>02 安装git工具</h4><pre><code>cnpm install --save hexo-deployer-git
-</code></pre><p><img src="https://pic.superbed.cn/item/5cb98eee3a213b04177c2efb" alt></p>
-<h4 id="03-配置-config-yml-文件"><a href="#03-配置-config-yml-文件" class="headerlink" title="03 配置_config.yml 文件"></a>03 配置_config.yml 文件</h4><pre><code>deploy:
-    type: git
-    repo: https://github.com/976335061/976335061.github.io.git
-    branch: master
-</code></pre><p>配置完成后使用</p>
-<pre><code>hexo d
-</code></pre><p>部署到github</p>
-<p>若出现以下错误<br><img src="https://pic.superbed.cn/item/5cb98ff93a213b04177c36ee" alt></p>
-<p>更改配置文件</p>
-<pre><code>git config --global user.email &quot;you@example.com&quot;
-git config --global user.name &quot;Your Name&quot;
-</code></pre><p>输入自己的github账号和密码即可<br>成功后如下图<br><img src="https://pic.superbed.cn/item/5cb990e53a213b04177c3f21" alt><br>打开浏览器，在地址栏中输入你自己的github仓库地址就好</p>
-<pre><code>976335061.github.com
-</code></pre><p><img src="https://pic.superbed.cn/item/5cb991483a213b04177c43bf" alt></p>
+# canvas_sphere
+canvas_sphere: false
+</code></pre><h5 id="修改文章底部的-号标签"><a href="#修改文章底部的-号标签" class="headerlink" title="修改文章底部的#号标签"></a>修改文章底部的#号标签</h5><p>打开/themes/next/layout/_macro/post.swig，搜索 rel=”tag”&gt;#，将#换成Font Awesome图标:</p>
+<p><i class="fa fa-tag"></i></p>
+<p>#####评论系统<br>我使用的是来必力 点击这里 注册账号，然后复制下面的data-uid：<br>来必力</p>
+<p>在主题配置文件找到livere_uid：</p>
+<pre><code># Support for LiveRe comments system.
+# You can get your uid from https://livere.com/insight/myCode (General web site)
+livere_uid: # 粘贴你的uid
+</code></pre><p>这样，除了设置了comments: false的页面，其他都会有评论系统了。</p>
+<h5 id="网站底部加访问量"><a href="#网站底部加访问量" class="headerlink" title="网站底部加访问量"></a>网站底部加访问量</h5><p>这个我是通过修改\themes\next\layout_partials\footer.swig文件实现的:</p>
+<p><div class="powered-by"><br>    <i class="fa fa-user-md"></i><br>    <span id="busuanzi_container_site_uv"><br>        本站访客数:<span id="busuanzi_value_site_uv"></span><br>    </span><br>    <span class="post-meta-divider">|</span><br>    <span id="busuanzi_container_site_pv"><br>        本站访问量<span id="busuanzi_value_site_pv"></span><br>    </span><br></div><br>统计功能<br>先在博客目录下安装插件：</p>
+<p>npm install hexo-wordcount –save<br>然后在主题配置文件，找到post_wordcount，修改你想要的统计功能，有字数统计，阅读时长等：</p>
+<pre><code># Post wordcount display settings
+# Dependencies: https://github.com/willin/hexo-wordcount
+</code></pre><p>post_wordcount:<br>  item_text: true<br>  wordcount: true<br>  min2read: true<br>  totalcount: true<br>  separated_meta: true<br>LeanCloud文章阅读次数统计<br>点击这里 注册登录LeanCloud账号，先创建一个任意名称的应用，再创建一个名为Counter的Class。<br>LeanCloud<br>在应用Key这里分别复制App ID和App Key到主题配置文件里的leancloud_visitors，并把enable改为true。</p>
+<pre><code>Key
+# Show number of visitors to each article.
+# You can visit https://leancloud.cn get AppID and AppKey.
+leancloud_visitors:
+enable: true
+app_id: 
+app_key:
+</code></pre><h5 id="顶部加载条"><a href="#顶部加载条" class="headerlink" title="顶部加载条"></a>顶部加载条</h5><p>修改主题配置文件，找到pace改为true，并从上面提供的样式中选择一种填入pace_theme中就可以了：</p>
+<pre><code># Progress bar in the top during page loading.
+pace: true
+# Themes list:
+#pace-theme-big-counter
+#pace-theme-bounce
+#pace-theme-barber-shop
+#pace-theme-center-atom
+#pace-theme-center-circle
+#pace-theme-center-radar
+#pace-theme-center-simple
+#pace-theme-corner-indicator
+#pace-theme-fill-left
+#pace-theme-flash
+#pace-theme-loading-bar
+#pace-theme-mac-osx
+#pace-theme-minimal
+# For example
+# pace_theme: pace-theme-center-simple
+pace_theme: pace-theme-minimal
+</code></pre><h5 id="右上角加fork-me-on-github"><a href="#右上角加fork-me-on-github" class="headerlink" title="右上角加fork me on github"></a>右上角加fork me on github</h5><p>点击这里或者这里挑选你喜欢的样式，修改成你的GitHub链接，复制到themes/next/layout/_layout.swig文件中的以下位置：</p>
+<pre><code>&lt;div class=&quot;{{ container_class }} {% block page_class %}{% endblock %}&quot;&gt;
+&lt;div class=&quot;headband&quot;&gt;&lt;/div&gt;
+&lt;a href=&quot;https://github.com/976335061&quot; ......
+&lt;/a&gt;
+</code></pre><h5 id="浏览文章时显示浏览进度"><a href="#浏览文章时显示浏览进度" class="headerlink" title="浏览文章时显示浏览进度"></a>浏览文章时显示浏览进度</h5><p>主题设置文件查找scrollpercent修改为true：</p>
+<pre><code># Scroll percent label in b2t button.
+scrollpercent: true
+</code></pre><h5 id="修改文章内链接的样式"><a href="#修改文章内链接的样式" class="headerlink" title="修改文章内链接的样式"></a>修改文章内链接的样式</h5><p>文章里的链接样式默认是只加一条下划线，颜色和普通文字一样，为了方便区分，在themes/next/source/css/_custom/custom.styl文件加以下代码，自行添加的样式都可以写在这个文件里：</p>
+<pre><code>.post-body p a{
+color: #0593d3;
+border-bottom: none;
+border-bottom: 1px solid #0593d3;
+&amp;:hover {
+  color: #fc6423;
+  border-bottom: none;
+  border-bottom: 1px solid #fc6423;
+}
+}
+</code></pre><p>致谢<br>一路搭建过来参考了各路大神<br>这里推荐一篇干货满满的<a href="https://www.jianshu.com/p/f054333ac9e6" target="_blank" rel="noopener">文章</a><br>还有就是官方的文档了，里面也有很详细的主题配置和第三方服务的说明：（<a href="http://theme-next.iissnan.com/third-party-services.html" target="_blank" rel="noopener">http://theme-next.iissnan.com/third-party-services.html</a>)</p>
 
           
         
@@ -2380,7 +2595,7 @@ git config --global user.name &quot;Your Name&quot;
                 
                   <a href="/archives/">
                 
-                    <span class="site-state-item-count">15</span>
+                    <span class="site-state-item-count">16</span>
                     <span class="site-state-item-name">posts</span>
                   </a>
                 </div>
